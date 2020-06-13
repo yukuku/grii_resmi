@@ -1,11 +1,10 @@
-name: pakeflutter
-description: A new Flutter project.
+name: grii_resmi
 
 dependencies:
   flutter:
     sdk: flutter
   simple_audio_player:
-    path: ../simple_audio_player/
+    path: simple_audio_player/
   flutter_search_bar:
   http: '>=0.11.3+12'
   path_provider: ^1.3.0
