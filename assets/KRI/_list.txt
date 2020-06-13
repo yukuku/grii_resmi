@@ -1,0 +1,333 @@
+1;Besarlah Allahku;How Great Thou Art
+2;Agungkan Kuasa Nama-Nya;
+3;Terpujilah Nama Yesus;All Hail The Power of Jesus’ Name
+4;Rajakanlah Yesus;Crown Him With Many Crowns
+5;Worthy of Worship;
+6;Puji! Puji!;Praise Him! Praise Him!
+7;Walau Seribu Lidahku;O For A Thousand Tongues to Sing
+8;Terpujilah Allah;To God be the Glory
+9;Atas Bumi Nan Permai;For The Beauty Of The Earth
+10;Ini Dunia Bapa;This is My Father's World
+11;Psalm 15;
+12;Allah Baik;
+13;God Is Our Refuge And Our Strength;
+14;Besar Setia-Mu;Great is Thy Faithfulness
+15;Allah Jadi Benteng Kukuh;A Mighty Fortress Is Our God
+16;Nyamanlah Jiwaku;It Is Well With My Soul
+17;Engkau Milikku Abadi;
+18;Ku Bersandar pada Yang Kekal;Leaning On The Everlasting Arms
+19;Tuntun Aku, Tuhan Allah;Guide Me, O Thou Great Jehovah
+20;Be Strong In The Lord;
+21;Sepanjang Jalan Tuhan Pimpin;All The Way My Savior Leads Me
+22;Ku Tahu Siapa Yang Kupercaya;I Know Whom I Believed
+23;Jaminan Mulia;Blessed Assurance
+24;Bapa Surgawi Memeliharaku;My Heavenly Father Watches Over Me
+25;Malam Kudus;Silent Night
+26;Karena Allah Cinta;For God So Loved The World
+27;Dunia Gemar dan Soraklah;Joy To The World
+28;Jesus, The Very Thought of Thee;
+29;Dengarlah Malak Menyanyi;Hark! The Herald Angels Sing
+30;Di Malam Sunyi Bethlehem;O Little Town Of Bethlehem
+31;Pada Tengah Malam Itu;It Came Upon The Midnight Clear
+32;Oh, Malam Kudus;O Holy Night
+33;Adalah di Kota Daud;Once in Royal David's City
+34;Kasih Yang Ajaib;
+35;O Mighty Cross;
+36;Di Bukit Golgota;The Old Rugged Cross
+37;I Believe In A Hill Called Mount Calvary;
+38;Bawalah Aku Yesus Dekat Ke Salib;Near The Cross
+39;Pimpin ke Kalvari;Lead Me To Calvary
+40;Kisah Salib Tuhan Yesus;The Broken Heart
+41;Di Bawah Salib Yesus;Beneath the Cross of Jesus
+42;Hanya oleh Darah Yesus;Nothing But The Blood of Jesus
+43;Mulia dan Menang;Thine Is The Glory
+44;Dalam Taman;In The Garden
+45;Kristus Hidup;He Lives
+46;Kristus Bangkit;Christ Arose
+47;Ada Lagu Dalam Hatiku;He Keeps Me Singing
+48;There is a Redeemer;
+49;Sukacita Tuhan Penuhiku;
+50;Ku Bernyanyi Tentang Yesus;Why Do I Sing About Jesus
+51;Sejak Yesus di Hatiku;Since Jesus Came Into My Heart
+52;Dahulu Ku Tersesatlah;He Ransomed Me
+53;Surga Turun;Heaven Came Down
+54;Aku Sedang Berjalan;
+55;Oh, Kasih Hu Ajaib Indah;
+56;S’karang Ku Milik Yesus;Now I Belong To Jesus
+57;Sangat Besar Anug'rah-Mu;Amazing Grace
+58;Grace Alone;
+59;Kar’na Kasih-Nya;It Was Love
+60;Not What My Hands Have Done;
+61;Jesus, Thou Joy of Loving Hearts;Tuhan Ajarlah Aku Berdoa
+62;Yesus Kristus Juruselamat Dunia;
+63;Kidung Agung;Song Of Songs
+64;Ingat Akan Nama Yesus;Take the Name Of Jesus With You
+65;Yesus Segala-galanya;Jesus Is All The World To Me
+66;Bukan Aku;Not I But Christ
+67;Why Have You Chosen Me;
+68;Berjalan Ke Sion;We're Marching To Zion
+69;Seperti Tuhanku;More Like The Master
+70;Ku Mau Setia;I Would Be True
+71;From Glory To Glory;
+72;May The Mind Of Christ, My Saviour;
+73;Belum Pernah Ku Rendah Hati;
+74;Pujilah Hai Jiwaku;
+75;Dosa Keluar;
+76;Ada Kuasa dalam Darah-Nya;There is Power In The Blood
+77;Siapakah Juruselamat?;
+78;Mengikut Yesus Keputusanku;I Have Decided To Follow Jesus
+79;Di Atas Satu Alas;The Church's One Foundation
+80;Puji Hu!;Thanks To God
+81;Indahlah Saat Berdoa;Sweet Hour of Prayer
+82;O Love That Will Not Let Me Go;
+83;Ku Berdoa Bagimu;I Am Praying For You
+84;Nyatakan Kehendak-Mu;Speak To My Heart
+85;Yesus Berdoa Bagi Daku;
+86;Ke Tempat Tinggi;Higher Ground
+87;Thy Loving Kindness;
+88;Lord of the Universe;
+89;Mazmur 42;
+90;Pandanglah Pada Yesus;Turn Your Eyes Upon Jesus
+91;Near To The Heart Of God;
+92;Kehendak Tuhan Jadikanlah;Have Thine Own Way, Lord
+93;Kenal Kau ‘Kan Yesus;Do You Know My Jesus
+94;Sebenarnya Ku Tak Layak;Just As I Am, Without One Plea
+95;Jangan Engkau Lalu;Pass Me Not
+96;Bukakan Mataku, Tuhan;Open My Eyes That I May See
+97;Ajaiblah Firman Hidup;Wonderful Words Of Life
+98;Roh Kebenaran Penuhi Daku;Fill Me Now
+99;Penuhi Cawanku;Fill My Cup, Lord
+100;Jalan Salib Perlulah Korban;The Way Of The Cross Means Sacrifice
+101;Hidup Bagi Yesus;Living For Jesus
+102;Pakai Hidupku Ini;Take My Life and Let It Be
+103;Memancarkan Keindahan-Mu;Let The Beauty of Jesus be Seen in Me
+104;Bagi Yesus Tuhanku;All For Jesus
+105;Ku Mau S’perti Hu;O To Be Like Thee
+106;Ke mana Saja;Wherever Will Go
+107;Utus Aku dalam Misi-Mu;
+108;Pimpinlah Niat Hamba;Lead Me To Some Soul Today
+109;Sukacita dalam Melayani Raja;In The Service Of The King
+110;Angkat Suaramu;Sound The Battle Cry
+111;Pakailah Ku Bagai Pelita;God Make My Life A Little Light
+112;Korban Hidup;
+113;Api Roh Suci;Let The Fire Burn On
+114;B’rilah T’rang;Send The Light
+115;Hai, Bangkit bagi Yesus;Stand Up, Stand Up For Jesus
+116;Dari Kutub ke Kutub;From Greenland's Icy Mountain
+117;Api Zaman;The Flame Of The Ages
+118;Jadikan Aku Saluran Berkat;Make Me A Blessing
+119;Kita Harus Membawa Berita;We've A Story To Tell To The Nations
+120;Psalm 84;
+121;Aku Tuhan Semesta;
+122;Bangkit bagi Kristus;
+123;Tuhan Ampuni Dosaku;
+124;Bila Kau Pernah Cinta Yesus;
+125;Song For The Nations;
+126;Hujan Berkat Akan Turun;There Shall Be Showers Of Blessing
+127;Waktu Namaku Dipanggil;When The Roll Is Called Up Yonder
+128;Battle Hymn Of The Republic;
+129;When We All Get To Heaven;
+130;According to Thy Gracious Word;
+131;Psalm 23;Mazmur 23
+132;Above All;
+133;Agungkan Allahmu, Junjungan Abraham;The God of Abraham Praise
+134;Ajarku dan Pimpinku;Lead Me
+135;Aku Milik Tuhan;
+136;Allah Hadir;God Is Here And That To Bless Us
+137;Allah Panggil Kaum Muda;
+138;Be Still For The Presence of The Lord;
+139;Amin;
+140;Before The Throne of God Above;
+141;Beban Terlepas di Kalvari;Burdens Are Lifted At Calvary
+142;Berdiamlah, Berdiamlah;
+143;Beritakan Injil Selamanya;Preaching His Gospel Forever
+144;UmatNya Pujilah;Come, Christians, Join to Sing
+145;Bila Kerjaku Selesai;My Savior First Of All
+146;Penuhi Daku;Have I Grieved
+147;Bangkitkan Jiwaku;Send A Great Revival
+148;Penebus yang Mulia;Blessed Redeemer
+149;Imanku Menengadah;My Faith Looks Up To Thee
+150;Rohku Tenang;Be Still My Soul
+151;Berita Natal;The First Noel The Angel Did Say
+152;Kiranya Langit Terbelah;
+153;Hadir Kau?;Were You There?
+154;Kau Allah Benteng Yang Baka;O God Our Help In Ages Past
+155;Hai Umat, Nyanyilah;
+156;Kau Tak Kulupakan;I Will Not Forget Thee
+157;Siapakah Bayi yang Tidur;What Child is This?
+158;Roh Allah Maha Hidup;Spirit Of The Living God
+159;Kupercaya Pada Yesus;'Tis So Sweet To Trust In Jesus
+160;Yesus, Seperti KehendakMu;My Jesus, As Thou Wilt!
+161;Datang Bersyukurlah;Now Thank We All Our God
+162;Kami Kenang Akan Tuhan;In Remembrance Of Me
+163;Bekerja Selama Siang;Work, For The Night Is Coming
+164;Yesus Seperti Gembala;Saviour, Like A Shepherd Lead Us
+165;Sandar Tuhan Selalu;Trusting Jesus
+166;Makin Dekat Tuhan;Nearer My God To Thee
+167;Tuhan Ingat Daku;He Remembers Me
+168;Kristus Tuhan Memerintah Semesta;Jesus Shall Reign Wheree'er The Sun
+169;Panggilan-Mu Kami Dengar;Your Kingdom's Cause Dear Lord
+170;Kita Pecahkan Roti;Let Us Break Bread Together
+171;Beritakanlah di Gunung;Go Tell It On The Mountain
+172;Damai di Hatiku;Constantly Abiding
+173;Sebagai Keledai;
+174;Allah Mahakuasa;Come Thou Almighty King
+175;Yang Letih Datanglah Pada-Nya;When The Weary, Seeking Rest
+176;Tercurah Darah Tuhanku;There Is A Fountain Filled With Blood
+177;Sungguh Hidup Penebusku;I Know That My Redeemer Liveth
+178;Ikut Dikau Saja Tuhan;
+179;Maukah Engkau Menang;Keep In Touch With Jesus
+180;'Ku Rindu Kerajaan-Mu;I Love Your Kingdom, Lord
+181;Alam Semesta Memuliakan Allah;The Spacious Firmament On High
+182;Muka Dengan Muka;Face To Face
+183;Ya Anak Kecil;
+184;Roti Hidup Jiwa;Break Thou The Bread Of Life
+185;Yesus Aku Berjanji;O Jesus, I Have Promised
+186;B’rilah Hormat Pada Hu;Glory To God In The Highest
+187;Yesus Sahabat Sejati;What A Friend We Have In Jesus
+188;T’lah Tumbuh Tunas Baru;Lo, How a Rose E'er Blooming
+189;Iman UmatMu Yang Hidup;Faith Of Our Fathers
+190;Adakah Tempat Bagi Yesus;Have You Any Room For Jesus?
+191;Tunjukkan Jalan-Mu, O Tuhanku;Teach Me Thy Way
+192;Kasih Allah;The Love Of God
+193;Tuhan Menjagamu;Be Not Dismayed Whate'er Betide
+194;Bernyanyilah Merdu;Now Sing We, Now Rejoice
+195;Jadilah Visiku;Be Thou My Vision
+196;Pakailah Waktumu;Take Time To Be Holy
+197;Juruselamat Yang Ajaib;What A Wonderful Savior!
+198;Sudahkah Yang Terbaik Kuberikan;Have I Done My Best For Jesus?
+199;Tuhan Kau Kuperlukan;I Need Thee
+200;Sungguh Mulia;
+201;Setia Sampai Mati;
+202;Hai Masyurkanlah;
+203;Beruntungkah Aku?;And Can It Be That I Should Gain?
+204;Yesus ‘Ku Cinta-Mu;My Jesus I Love Thee
+205;O Tuhanku, Sucikan Hatiku;Cleanse Me
+206;Umat Tuhan Menantikan;Come Thou Long Expected Jesus
+207;Rahmat Yesus Yang Indah;Wonderful Grace Of Jesus
+208;Diri-Nya;Once It Was The Blessing
+209;‘Ku Tahu Siapa Menguasai Hari Esok;I Know Who Holds Tomorrow
+210;Ikut Yesus;Follow On
+211;Memandang Salib Yang Agung;When I Survey The Wondrous Cross
+212;Kami Puji Nama-Mu;Holy God, We Praise Thy Name
+213;Dia Memeliharakan Burung;His Eye Is On The Sparrow
+214;Kemuliaan Dan Hormat;All Glory, Laud and Honor
+215;Dengar Juruslamat Berseru;I Hear My Risen Saviour Say
+216;Tambahlah Kasihku Akan Tuhan;More Love To Thee
+217;Seluruh Umat Tuhan Oleh-Nya Dikenal;
+218;Pintuku Telah Tutup;Lord, I Have Shut The Door
+219;Setia! Setia!;Be True
+220;Hormat Bagi Allah Bapa;Glory Be To God The Father
+221;Kelak ‘Ku Lihat Wajah-Nya;Saved By Grace
+222;‘Ku Suka Mengabarkan;I Love To Tell The Story
+223;Pikul Salib;Many Crowd The Saviour's Kingdom
+224;Nyatakan Yesus Dalammu;Let Others See Jesus In You
+225;‘Ku Datang Tuhan;I Hear Thy Welcome Voice
+226;Aku Berserah;I Surrender All
+227;Batu Zaman;Rock Of Ages
+228;Dunia Kedinginan;In The Bleak Midwinter
+229;Serahkan Yang Terbaik Pada-Hu;Give Of Your Best To The Master
+230;Penuhilah Pialamu Hari Ini;Bring Your Vessels, Not A Few
+231;Hu ‘Ku Milik-Mu;I'm Thine, O Lord
+232;Tuhanku Yesus;Fairest Lord Jesus
+233;‘Ku Tak Tahu;I Cannot Tell
+234;Yesus sayang padaku;Jesus Loves Me
+235;Mari Datanglah, Sembah Sang Raja;O Worship The King
+236;Kudus, Kudus, Kudus;Holy, Holy, Holy
+237;Putri Sion, Nyanyilah;Daughter Of Zion
+238;O Bangkitlah, Kabarkan Injil Tuhan;O Zion, Haste
+239;Janji Tuhan Setia;All That Our Savior Hath Spoken
+240;Kristus Yesus Bangkitlah;Christ The Lord Is Risen Today
+241;O Datanglah Immanuel;O Come, O Come Emmanuel
+242;Kasih Mengangkatku;Love Lifted Me
+243;Dengar Malak Bersorak;Angels We Have Heard On High
+244;Juruselamat Kita Yang Besar;Our Great Savior
+245;Roh Penghibur Datang;The Comforter Has Come
+246;Tiap Langkahku;Each Step I Take
+247;Sucikan Hatiku;Purer In Heart, O God
+248;‘Ku Bertemu Yesus Sobatku;Saved! Saved!
+249;Puji Nama Tuhan;Blessed Be The Name Of The Lord
+250;Ia Melindungi Jiwaku;He Hideth My Soul
+251;Tertunduk Kepala-Mu;O Sacred Head Now Wounded
+252;Hai Semua Ciptaan-Nya;All Creatures Of Our God And King
+253;Masyurkan Raja-Mu;Rejoice The Lord Is King
+254;Tinggal Sertaku;Abide With Me
+255;Hai Bangkitlah! Sambut Hari Mulia;Christians Awake! Salute the Happy Mom
+256;Tuhan Memegang Pimpinan;He Leadeth Me
+257;Hitung Berkat-Mu;Count Your Blessings
+258;Puji Tuhan Yang Maha Kuasa;Praise To The Lord, The Almighty
+259;Yang ‘Ku Persembahkan;We Give You But Your Own
+260;Berlutut Di Palungan-Mu;
+261;Apa Yang Kau Perbuat Bagi Yesus;What are you doing for Jesus?
+262;Hai Mari Berhimpun;O Come All Ye Faithful
+263;‘Ku Tahu Alkitab Sungguh Benar;I Know The Bible Is True
+264;Hai Dunia, Lihat Tuhan;
+265;Tuhan Allah Hadir;God Is In His Temple
+266;O Kalam Yang Menjelma;O Word Of God Incarnate
+267;Dari Lembah Sengsara-Mu;From Depths Of Woe I Cry To Thee
+268;Haruskah Ia Pikul Salib;Must Jesus Bear The Cross Alone
+269;‘Ku Nyanyikan Kuasa-Nya;I Sing The Mighty Power Of God
+270;Di Hadapan Tuhan Yesus;For Jesu Milda Ogon
+271;Biar ‘Ku Tumbuh Di Batang-Mu;If You But Trust In God To Guide Us
+272;Mari Puji Raja Surga;Praise My Soul The King Of Heaven
+273;Dunia Bukan Rumahku;This World Is Not My Home
+274;Tuhan Yesus Gembalaku;The Lord My Shepherd
+275;Jesu, Joy Of Man’s Desiring;
+276;Yang Mau Dibimbing Tuhan;O Lord I Love Thee
+277;Kekuatan Serta Penghiburan;Day By Day
+278;Hatiku Memuji Tuhan;O For A Heart To Praise My God
+279;Yesus, Sumber Penghiburan;
+280;Tinggalkan Jalan Susah Dan Gelap;Out Of My Bondage Sorrow And Night
+281;Bangunkan Kami;Revive Us Again
+282;Ya Tuhan Bimbing Aku;Lord Take My Hand And Lead Me
+283;Yesus Mencariku;Jesus My Saviour To Betlehem Come
+284;Lebih baik Yesus;I'd Rather Have Jesus
+285;Raja Mulia;Majestic Sweetness Sits Enthroned
+286;'Ku Perlukan Juruselamat;I Must Have The Savior With Me
+287;Indahlah Ikatan Dalam Kasih-Nya;Blest Be The Tie That Binds
+288;Menjadi Seorang Kristen;Lord, I Want To Be A Christian
+289;Moment by Moment;
+290;Kota Sion Kota Allah;Glorious Things of Thee Are Spoken
+291;Lemah Lembut Tuhan Yesus Memanggil;Softly And Tenderly
+292;Mari Bersukacita;
+293;Engkau Bersuka, Dalam Derita;In Dir Ist Freude
+294;Layakkah 'Ku Pergi Dengan Tangan Hampa?;Must I Go, And Empty Handed?
+295;Take The World, But Give Me Jesus;
+296;Dapatkah 'Ku Tak Cinta Dia?;How Can I Help But Love Him
+297;Bumi, Langit, Mari Puji;Praise To The Holiest In The Highest
+298;Batu Karang Yang Teguh;The Solid Rock
+299;Tuhan Pencipta Semesta;O Lord Of Heaven And Earth And Sea
+300;O, 'Ku Cinta Yesus;O, How I Love Jesus
+301;Hidupkan Gereja-Mu;Revive Your Church, O Lord
+302;Serta Tuhan Ketika Terbit Fajar;Still, Still With Thee
+303;Pakailah Waktu Anugrah Tuhan-Mu;Grijp Toch De Kansen
+304;Di sini'ku Menghadap Wajah-Mu;
+305;Thank You Lord;
+306;T'rus Berjalan Serta-Mu;
+307;Tuhan'Ku Cinta Dikau;
+308;Iman Yang Beri Menang;Faith Is The Victory
+309;O God Beyond All Praising;
+310;Apa Tuhan s'lalu peduli?;Does Jesus Care?
+311;Doxology;Doxology: Fairhill
+312;Kasih Kristus B'ritakan Dunia;Lift High The Cross
+313;Will Jesus Find Us Watching?;
+314;Berdoalah;Whisper A Prayer
+315;Ikut Tuhanku;Follow Him My Lord
+316;In Christ Alone;
+317;Haleluya Puji Tuhan;
+318;When The Weary Seeking Rest;
+319;Declare His Glory;
+320;Hallelujah, What A Saviour!;
+321;Meekness and Majesty;
+322;It Passeth Knowledge;
+323;Immortal, Invisible, God Only Wise;
+324;Haleluya, Bagi Anak Domba Allah;
+325;Doxology;Doxology: 100TH
+326;Glorious Freedom;
+327;Doxology;Doxology: Tallis
+328;Dalam G'lap Terang-Nya Bercahaya;In Our Darkness Light Has Shone
+329;Hendaklah Hidupmu Sesuai Injil-Nya;
+330;Intan dan Permata;
+331;Hari Kebangkitan;
+332;Jesus, My Lord, My God, My All;
+333;Tell Out, My Soul;
