@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: defaultSongBook.name,
+      title: 'GRII',
       theme: ThemeData(primarySwatch: Colors.red),
       home: MainWidget(),
     );
@@ -77,18 +77,17 @@ class _MainWidgetState extends State<MainWidget> {
   static List<Widget> _widgetOptions = <Widget>[
     _CalendarHome(),
     _SongHome(),
-    Center(
-      child: Column(
-        children: <Widget>[
-          Text(
-            'Aplikasi GRII',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            'Yuku',
-          ),
-        ],
-      ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Aplikasi GRII',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          'Yuku',
+        ),
+      ],
     ),
   ];
 
@@ -788,7 +787,7 @@ class _CalendarHomeState extends State<_CalendarHome> {
   _CalendarHomeState() {}
 
   Future fetchCalendar() async {
-    final response = await Client().get('http://10.0.2.2:5001/pulau-kreta/us-central1/v0_getDayEvents');
+    final response = await Client().get('https://us-central1-pulau-kreta.cloudfunctions.net/calendar/v0/listDayEvents?local_date=2020-06-06&local_tzhm=%2b08:00');
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
@@ -821,7 +820,27 @@ class _CalendarHomeState extends State<_CalendarHome> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          return Text(snapshot.data.toString());
+
+          final List<dynamic> events = snapshot.data;
+          final widgets = events.map((e) {
+            final startTime = DateTime.fromMillisecondsSinceEpoch(e['startTime'] * 1000.0);
+
+            return Column(children: <Widget>[
+              Text(startTime.toString()),
+              Text(
+                e['title'],
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              if (e['speaker'] != null) Text(e['speaker']),
+              if (e['linkText'] != null) Text(e['linkText']),
+              if (e['description'] != null)
+                Text(
+                  e['description'],
+                  style: TextStyle(fontSize: 12.0),
+                ),
+            ]);
+          }).toList();
+          return ListView(children: widgets);
         },
       ),
     );
