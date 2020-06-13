@@ -1,0 +1,17 @@
+name: simple_audio_player
+description: A new flutter plugin project.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+flutter:
+  plugin:
+    androidPackage: yuku.simpleaudioplayer
+    pluginClass: SimpleAudioPlayerPlugin
+
+dependencies:
+  flutter:
+    sdk: flutter
