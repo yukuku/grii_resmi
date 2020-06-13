@@ -43,6 +43,16 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+
+    flavorDimensions "env"
+
+    productFlavors {
+        prod {
+            dimension "env"
+            applicationId = "yuku.grii"
+        }
+    }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release

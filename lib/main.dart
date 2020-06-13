@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
@@ -7,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:http/http.dart';
+import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry/sentry.dart';
-import 'package:simple_audio_player/simple_audio_player.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:package_info/package_info.dart';
+import 'package:simple_audio_player/simple_audio_player.dart';
 
 final SentryClient sentry = SentryClient(dsn: 'https://4d1de035fe314db8b219e2f701a2181c:ec106d4c1ff34a229b2329ff249ec4df@sentry.io/223245');
 
@@ -59,22 +60,83 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: defaultSongBook.name,
       theme: ThemeData(primarySwatch: Colors.red),
-      home: _MyAppHome(),
+      home: MainWidget(),
     );
   }
 }
 
-class _MyAppHome extends StatefulWidget {
+class MainWidget extends StatefulWidget {
+  MainWidget({Key key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _MyAppHomeState();
+  _MainWidgetState createState() => _MainWidgetState();
 }
 
-class _MyAppHomeState extends State<_MyAppHome> {
+class _MainWidgetState extends State<MainWidget> {
+  int _selectedIndex = 0;
+  static List<Widget> _widgetOptions = <Widget>[
+    _CalendarHome(),
+    _SongHome(),
+    Center(
+      child: Column(
+        children: <Widget>[
+          Text(
+            'Aplikasi GRII',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Yuku',
+          ),
+        ],
+      ),
+    ),
+  ];
+
+  void _onTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            title: Text('Jadwal'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.music_note),
+            title: Text('Lagu'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            title: Text('Tentang'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onTap,
+      ),
+    );
+  }
+}
+
+class _SongHome extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _SongHomeState();
+}
+
+class _SongHomeState extends State<_SongHome> {
   SearchBar searchBar;
   String bookName = defaultSongBook.name;
   String filterText;
 
-  _MyAppHomeState() {
+  _SongHomeState() {
     searchBar = SearchBar(
       setState: setState,
       buildDefaultAppBar: buildAppBar,
@@ -713,4 +775,55 @@ Future<AssetImage> loadSongImage(String bookName, String code) async {
   }
 
   return AssetImage(assetName);
+}
+
+class _CalendarHome extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _CalendarHomeState();
+}
+
+class _CalendarHomeState extends State<_CalendarHome> {
+  StreamController _controller = StreamController();
+
+  _CalendarHomeState() {}
+
+  Future fetchCalendar() async {
+    final response = await Client().get('http://10.0.2.2:5001/pulau-kreta/us-central1/v0_getDayEvents');
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+  @override
+  void initState() {
+    fetchCalendar().then((res) async {
+      _controller.add(res);
+      return res;
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Jadwal'),
+      ),
+      body: StreamBuilder(
+        stream: _controller.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.error != null) {
+            return Center(child: Text('Error ${snapshot.error}'));
+          }
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Text(snapshot.data.toString());
+        },
+      ),
+    );
+  }
 }
