@@ -95,6 +95,10 @@ id periodicTimeObserver;
         [player pause];
         result(@(YES));
         
+    } else if ([@"dispose" isEqualToString:method]) {
+        [player pause];
+        result(@(YES));
+
     } else if ([@"seek" isEqualToString:method]) {
         NSNumber* ms = call.arguments;
         int32_t timeScale = player.currentItem.asset.duration.timescale;

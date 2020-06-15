@@ -12,8 +12,7 @@ enum Status {
 }
 
 class SimpleAudioPlayer {
-  static MethodChannel _channel = new MethodChannel('simple_audio_player')
-    ..setMethodCallHandler(callHandler);
+  static MethodChannel _channel = new MethodChannel('simple_audio_player')..setMethodCallHandler(callHandler);
 
   static final durationNotifier = new ValueNotifier<Duration>(null);
   static final positionNotifier = new ValueNotifier<Duration>(null);

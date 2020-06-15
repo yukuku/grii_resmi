@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:simple_audio_player/simple_audio_player.dart';
 
 void main() {
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
     SimpleAudioPlayer.completeNotifier.addListener(somethingChanged);
     SimpleAudioPlayer.errorNotifier.addListener(somethingChanged);
   }
-
 
   @override
   dispose() {
@@ -53,33 +52,39 @@ class _MyAppState extends State<MyApp> {
         body: new Column(
           children: <Widget>[
             new Text(_statusbar),
-            
-            new FlatButton(onPressed: () {
-              SimpleAudioPlayer.setDataSourceUrl("http://files.bibleforandroid.com/addon/audio/songs/v2/JB_22.mp3");
-            }, child: new Text("setDataSourceUrl")),
-
-            new FlatButton(onPressed: () {
-              SimpleAudioPlayer.play();
-            }, child: new Text("play")),
-
-            new FlatButton(onPressed: () {
-              SimpleAudioPlayer.pause();
-            }, child: new Text("pause")),
-
-            new FlatButton(onPressed: () {
-              SimpleAudioPlayer.resume();
-            }, child: new Text("resume")),
-
-            new FlatButton(onPressed: () {
-              SimpleAudioPlayer.dispose();
-            }, child: new Text("dispose")),
-
-            new FlatButton(onPressed: () {
-              SimpleAudioPlayer.tell().then((now) {
-                print("now is: $now");
-                SimpleAudioPlayer.seek(now + const Duration(seconds: 5));
-              });
-            }, child: new Text("seek +5")),
+            new FlatButton(
+                onPressed: () {
+                  SimpleAudioPlayer.setDataSourceUrl("https://files.bibleforandroid.com/addon/audio/songs/v2/JB_22.mp3");
+                },
+                child: new Text("setDataSourceUrl")),
+            new FlatButton(
+                onPressed: () {
+                  SimpleAudioPlayer.play();
+                },
+                child: new Text("play")),
+            new FlatButton(
+                onPressed: () {
+                  SimpleAudioPlayer.pause();
+                },
+                child: new Text("pause")),
+            new FlatButton(
+                onPressed: () {
+                  SimpleAudioPlayer.resume();
+                },
+                child: new Text("resume")),
+            new FlatButton(
+                onPressed: () {
+                  SimpleAudioPlayer.dispose();
+                },
+                child: new Text("dispose")),
+            new FlatButton(
+                onPressed: () {
+                  SimpleAudioPlayer.tell().then((now) {
+                    print("now is: $now");
+                    SimpleAudioPlayer.seek(now + const Duration(seconds: 5));
+                  });
+                },
+                child: new Text("seek +5")),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 .DS_Store
 .atom/
+.dart_tool/
+.flutter-plugins-dependencies
 .idea
 .packages
 .pub/
@@ -7,3 +9,5 @@ build/
 ios/.generated/
 packages
 pubspec.lock
+.flutter-plugins
+lib/generated_plugin_registrant.dart

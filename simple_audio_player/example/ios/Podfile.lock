@@ -4,19 +4,19 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - Flutter (from `/Users/yuku/bin/flutter/bin/cache/artifacts/engine/ios`)
-  - simple_audio_player (from `/Users/yuku/f/git/kidung-a/simple_audio_player/ios`)
+  - Flutter (from `Flutter`)
+  - simple_audio_player (from `.symlinks/plugins/simple_audio_player/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: /Users/yuku/bin/flutter/bin/cache/artifacts/engine/ios
+    :path: Flutter
   simple_audio_player:
-    :path: /Users/yuku/f/git/kidung-a/simple_audio_player/ios
+    :path: ".symlinks/plugins/simple_audio_player/ios"
 
 SPEC CHECKSUMS:
-  Flutter: d674e78c937094a75ac71dd77e921e840bea3dbf
-  simple_audio_player: 0764b95c6ed7ca270d279f596120fb9da2777289
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  simple_audio_player: d1a1694139f3b969df5ecdf3eb08fcd02fd1d771
 
-PODFILE CHECKSUM: 351e02e34b831289961ec3558a535cbd2c4965d2
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.8.4
