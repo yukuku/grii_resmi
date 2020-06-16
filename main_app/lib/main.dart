@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sentry/sentry.dart';
 
 import 'calendar.dart';
+import 'flavors.dart';
 import 'song.dart';
 
 final SentryClient sentry = SentryClient(dsn: 'https://4d1de035fe314db8b219e2f701a2181c:ec106d4c1ff34a229b2329ff249ec4df@sentry.io/223245');
@@ -54,9 +55,9 @@ class _MainWidgetState extends State<MainWidget> {
           'Aplikasi GRII',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Text(
-          'Yuku',
-        ),
+        Text('Yuku'),
+        Text(''),
+        Text('Rasa $FLAVOR'),
       ],
     ),
   ];

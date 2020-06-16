@@ -179,9 +179,11 @@ class _SongListPageState extends State<SongListPage> {
 
       final filtered = headers.where((header) => tokens.every((token) => header.code.contains(token) || (header.title != null && header.title.toLowerCase().contains(token)) || (header.titleOriginal != null && header.titleOriginal.toLowerCase().contains(token))));
 
-      setState(() {
-        this.headers.addAll(filtered);
-      });
+      if (mounted) {
+        setState(() {
+          this.headers.addAll(filtered);
+        });
+      }
     });
   }
 

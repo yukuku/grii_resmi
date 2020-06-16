@@ -2,13 +2,30 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'flavors.dart';
 
 int _todayDayNumber() {
   return (DateTime.now().millisecondsSinceEpoch / Duration.millisecondsPerDay).floor();
+}
+
+String _dateTimeToDisplayTime(DateTime d) {
+  final t = DateFormat('H:mm').format(d);
+  final tz = d.timeZoneOffset;
+  if (tz == Duration(hours: 7)) {
+    return t + ' WIB';
+  } else if (tz == Duration(hours: 8)) {
+    return t + ' SGT';
+  }
+  final sign = tz >= Duration.zero ? '+' : '-';
+  final min = tz.inMinutes.abs();
+  final add = min % 60;
+  return t + ' GMT' + sign + (min ~/ 60).toString() + (add == 0 ? '' : (':' + add.toString()));
 }
 
 String _dayNumberToDisplayDate(int dayNumber) {
@@ -110,27 +127,91 @@ class _DayPageState extends State<DayPage> {
                 return Center(child: CircularProgressIndicator());
               }
 
-              final List<dynamic> events = snapshot.data;
-              final widgets = events.map((e) {
-                double ms = (e['startTime'] * 1000.0);
-                final startTime = DateTime.fromMillisecondsSinceEpoch(ms.toInt());
+              if (snapshot.data.length == 0) {
+                return Center(child: Text('Belum ada jadwal hari ini'));
+              }
 
-                return Column(children: <Widget>[
-                  Text(startTime.toString()),
-                  Text(
-                    e['title'] + "${widget.dayNumber}",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  if (e['speaker'] != null) Text(e['speaker']),
-                  if (e['linkText'] != null) Text(e['linkText']),
-                  if (e['description'] != null)
-                    Text(
-                      e['description'],
-                      style: TextStyle(fontSize: 12.0),
+              final List<dynamic> events = snapshot.data;
+              events.sort((a, b) {
+                final int as = a['startTime'];
+                final int bs = b['startTime'];
+                return as.compareTo(bs);
+              });
+
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final e = events[index];
+                  final startTime = DateTime.fromMillisecondsSinceEpoch((e['startTime'] * 1000.0).floor());
+
+                  final String title = e['title'];
+                  final String speaker = e['speaker'];
+                  final String linkText = e['linkText'];
+                  final String description = e['description'].toString().trim();
+
+                  final linkOpen = (LinkableElement link) async {
+                    if (await canLaunch(link.url)) {
+                      await launch(link.url);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(content: Text('Ga bisa jalanin URL ${link.url}'));
+                        },
+                      );
+                    }
+                  };
+
+                  return TimelineTile(
+                    alignment: TimelineAlign.manual,
+                    lineX: 0.25,
+                    leftChild: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(_dateTimeToDisplayTime(startTime)),
+                      ),
                     ),
-                ]);
-              }).toList();
-              return ListView(children: widgets);
+                    indicatorStyle: IndicatorStyle(
+                      width: 16.0,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    topLineStyle: LineStyle(
+                      width: 2.0,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    bottomLineStyle: LineStyle(
+                      width: 2.0,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    isFirst: index == 0,
+                    isLast: index == events.length - 1,
+                    rightChild: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.subtitle2,
+                          ),
+                          if (speaker != null && speaker.isNotEmpty) Text(speaker),
+                          if (linkText != null && linkText.isNotEmpty)
+                            Linkify(
+                              text: linkText,
+                              onOpen: linkOpen,
+                            ),
+                          if (description != null && description.isNotEmpty)
+                            Linkify(
+                              text: description,
+                              onOpen: linkOpen,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: events.length,
+              );
             },
           ),
         ),

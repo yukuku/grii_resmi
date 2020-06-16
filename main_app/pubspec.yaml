@@ -11,6 +11,9 @@ dependencies:
   sentry: any
   shared_preferences: ^0.5.7+3
   package_info: ^0.4.1
+  timeline_tile: ^0.1.2
+  flutter_linkify: ^3.1.3
+  url_launcher: ^5.4.10
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
