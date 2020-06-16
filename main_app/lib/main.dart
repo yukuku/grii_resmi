@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:sentry/sentry.dart';
 
 import 'calendar.dart';
@@ -48,18 +50,7 @@ class _MainWidgetState extends State<MainWidget> {
   static List<Widget> _widgetOptions = <Widget>[
     CalendarHome(),
     SongsHome(),
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Aplikasi GRII',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        Text('Yuku'),
-        Text(''),
-        Text('Rasa $FLAVOR'),
-      ],
-    ),
+    AboutHome(),
   ];
 
   void _onTap(int index) {
@@ -92,6 +83,40 @@ class _MainWidgetState extends State<MainWidget> {
         currentIndex: _selectedIndex,
         onTap: _onTap,
       ),
+    );
+  }
+}
+
+class AboutHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Aplikasi GRII',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        Text('Yuku'),
+        SizedBox(height: 32.0),
+        RaisedButton(
+          onPressed: () async {
+            var version = '';
+            if (!kIsWeb) {
+              final pi = await PackageInfo.fromPlatform();
+              version = "${pi.version} (${pi.buildNumber})";
+            }
+            version += ' $FLAVOR';
+
+            showAboutDialog(
+              context: context,
+              applicationIcon: Image(image: AssetImage('assets/drawable/ic_launcher.png')),
+              applicationVersion: version,
+            );
+          },
+          child: Text('Info versi'),
+        )
+      ],
     );
   }
 }

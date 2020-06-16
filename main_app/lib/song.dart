@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:http/http.dart';
-import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_audio_player/simple_audio_player.dart';
@@ -118,19 +117,11 @@ class _SongsHomeState extends State<SongsHome> {
         PopupMenuButton<String>(
           itemBuilder: (context) {
             return [
-              PopupMenuItem(value: 'about', child: Text("About")),
               PopupMenuItem(value: 'clear_all_song_files', child: Text("Clear all song files")),
             ];
           },
           onSelected: (selected) async {
-            if (selected == 'about') {
-              final pi = await PackageInfo.fromPlatform();
-              showAboutDialog(
-                context: context,
-                applicationIcon: Image(image: AssetImage('assets/drawable/ic_launcher.png')),
-                applicationVersion: "${pi.version} (${pi.buildNumber})",
-              );
-            } else if (selected == 'clear_all_song_files') {
+            if (selected == 'clear_all_song_files') {
               final tempdir = await getSongFilesDir();
               await for (FileSystemEntity tempfile in tempdir.list()) {
                 if (tempfile is! File) continue;
