@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:grii_resmi/flavors.dart';
 import 'package:http/http.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
@@ -782,26 +783,22 @@ class _CalendarHome extends StatefulWidget {
 }
 
 class _CalendarHomeState extends State<_CalendarHome> {
-  StreamController _controller = StreamController();
-
-  _CalendarHomeState() {}
+  final StreamController<List> _controller = StreamController();
 
   Future fetchCalendar() async {
-    final response = await Client().get('https://us-central1-pulau-kreta.cloudfunctions.net/calendar/v0/listDayEvents?local_date=2020-06-06&local_tzhm=%2b08:00');
+    final response = await Client().get('${Flavor.current.functionsPrefix}/calendar/v0/listDayEvents?local_date=2020-06-06&local_tzhm=%2b08:00');
 
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      _controller.add(json.decode(response.body));
+      _controller.close();
     } else {
-      throw Exception('Failed to load post');
+      _controller.addError('Failed to load post: ${response.statusCode}');
     }
   }
 
   @override
   void initState() {
-    fetchCalendar().then((res) async {
-      _controller.add(res);
-      return res;
-    });
+    fetchCalendar();
     super.initState();
   }
 

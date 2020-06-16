@@ -7,3 +7,10 @@
 /build
 /captures
 GeneratedPluginRegistrant.java
+
+# IntelliJ
+/.idea/caches
+/.idea/modules.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/KotlinScripting.xml

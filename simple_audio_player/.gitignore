@@ -2,7 +2,6 @@
 .atom/
 .dart_tool/
 .flutter-plugins-dependencies
-.idea
 .packages
 .pub/
 build/
@@ -11,3 +10,14 @@ packages
 pubspec.lock
 .flutter-plugins
 lib/generated_plugin_registrant.dart
+
+# IntelliJ
+*.iml
+.gradle
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/KotlinScripting.xml
