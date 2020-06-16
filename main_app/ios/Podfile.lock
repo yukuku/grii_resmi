@@ -68,21 +68,33 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - path_provider_linux (0.0.1):
+    - Flutter
+  - path_provider_macos (0.0.1):
+    - Flutter
   - shared_preferences (0.0.1):
+    - Flutter
+  - shared_preferences_macos (0.0.1):
+    - Flutter
+  - shared_preferences_web (0.0.1):
     - Flutter
   - simple_audio_player (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Firebase/Analytics
-  - Flutter (from `/Users/yuku/flutter/bin/cache/artifacts/engine/ios-release`)
-  - "package_info (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.0+6/ios`)"
-  - path_provider (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider-1.3.0/ios`)
-  - "shared_preferences (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.3+4/ios`)"
-  - simple_audio_player (from `/Users/yuku/f/git/kidung-a/simple_audio_player/ios`)
+  - Flutter (from `/Users/yuku/flutter/bin/cache/artifacts/engine/ios`)
+  - package_info (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.1/ios`)
+  - path_provider (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.10/ios`)
+  - "path_provider_linux (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+1/ios`)"
+  - "path_provider_macos (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3/ios`)"
+  - "shared_preferences (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7+3/ios`)"
+  - "shared_preferences_macos (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+10/ios`)"
+  - "shared_preferences_web (from `/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7/ios`)"
+  - simple_audio_player (from `/Users/yuku/f/git/grii_resmi/simple_audio_player/ios`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -97,15 +109,23 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: "/Users/yuku/flutter/bin/cache/artifacts/engine/ios-release"
+    :path: "/Users/yuku/flutter/bin/cache/artifacts/engine/ios"
   package_info:
-    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.0+6/ios"
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.1/ios"
   path_provider:
-    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider-1.3.0/ios"
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.10/ios"
+  path_provider_linux:
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-0.0.1+1/ios"
+  path_provider_macos:
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+3/ios"
   shared_preferences:
-    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.3+4/ios"
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7+3/ios"
+  shared_preferences_macos:
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences_macos-0.0.1+10/ios"
+  shared_preferences_web:
+    :path: "/Users/yuku/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-0.1.2+7/ios"
   simple_audio_player:
-    :path: "/Users/yuku/f/git/kidung-a/simple_audio_player/ios"
+    :path: "/Users/yuku/f/git/grii_resmi/simple_audio_player/ios"
 
 SPEC CHECKSUMS:
   Firebase: 291d7b0a7b393f252358083b5d224884126fa46d
@@ -120,11 +140,15 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 6b545f7149111180763dc18c6f372c963de4a310
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  package_info: 78cabb3c322943c55d39676f4a5bfc748c01d055
-  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
-  shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
-  simple_audio_player: 0764b95c6ed7ca270d279f596120fb9da2777289
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  path_provider_linux: 4d630dc393e1f20364f3e3b4a2ff41d9674a84e4
+  path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
+  shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
+  simple_audio_player: d1a1694139f3b969df5ecdf3eb08fcd02fd1d771
 
 PODFILE CHECKSUM: 2e4c7240333914e4577c4b4ae2839a0a996d02c0
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4
