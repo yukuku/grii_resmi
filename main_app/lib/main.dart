@@ -6,6 +6,7 @@ import 'package:package_info/package_info.dart';
 
 import 'calendar.dart';
 import 'flavors.dart';
+import 'notice.dart';
 import 'song.dart';
 
 main() async {
@@ -33,8 +34,10 @@ class MainWidget extends StatefulWidget {
 class _MainWidgetState extends State<MainWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
+    NoticesHome(),
     CalendarHome(),
     SongsHome(),
+    AboutHome(),
     AboutHome(),
   ];
 
@@ -51,18 +54,27 @@ class _MainWidgetState extends State<MainWidget> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.rss_feed),
+            title: Text('Berita'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            title: Text('Jadwal'),
+            title: Text('Kegiatan'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
             title: Text('Lagu'),
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.local_florist),
+            title: Text('Pillar'),
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
-            title: Text('Tentang'),
+            title: Text('Info'),
           ),
         ],
         currentIndex: _selectedIndex,

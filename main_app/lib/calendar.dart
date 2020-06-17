@@ -60,7 +60,7 @@ class CalendarHomeState extends State<CalendarHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jadwal'),
+        title: Text('Jadwal Kegiatan'),
       ),
       body: PageView.builder(
         controller: _controller,
