@@ -43,7 +43,7 @@
 
 		<provider
 			android:name="com.thnkld.kidung.app.ExternalImageOpenerProvider"
-			android:authorities="com.thnkld.kidung.external_image_opener_provider"
+			android:authorities="yuku.grii.external_image_opener_provider"
 			android:enabled="true"
 			android:exported="true" />
 

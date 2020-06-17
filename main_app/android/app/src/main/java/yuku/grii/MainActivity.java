@@ -53,7 +53,7 @@ public class MainActivity extends FlutterActivity {
 					final String key = UUID.randomUUID().toString();
 					RenderedImageCache.INSTANCE.put(key, buf.toByteArray());
 
-					final Uri uri = Uri.parse("content://com.thnkld.kidung.external_image_opener_provider/" + key);
+					final Uri uri = Uri.parse("content://yuku.grii.external_image_opener_provider/" + key);
 					final Intent intent = new Intent(Intent.ACTION_VIEW)
 						.setDataAndType(uri, "image/png");
 
