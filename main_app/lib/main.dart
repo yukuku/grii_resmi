@@ -1,30 +1,15 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
-import 'package:sentry/sentry.dart';
 
 import 'calendar.dart';
 import 'flavors.dart';
 import 'song.dart';
 
-final SentryClient sentry = SentryClient(dsn: 'https://4d1de035fe314db8b219e2f701a2181c:ec106d4c1ff34a229b2329ff249ec4df@sentry.io/223245');
-
 main() async {
-  FlutterError.onError = (FlutterErrorDetails details) async {
-    FlutterError.dumpErrorToConsole(details);
-    final resp = await sentry.captureException(exception: details.exception, stackTrace: details.stack);
-    print("sending crash from FlutterError: ${resp.isSuccessful}");
-  };
-
-  try {
-    runApp(MyApp());
-  } catch (error, stackTrace) {
-    final resp = await sentry.captureException(exception: error, stackTrace: stackTrace);
-    print("sending crash from try-catch: ${resp.isSuccessful}");
-  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
