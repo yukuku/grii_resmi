@@ -8,6 +8,7 @@ import 'package:package_info/package_info.dart';
 import 'calendar.dart';
 import 'flavors.dart';
 import 'notice.dart';
+import 'pillar.dart';
 import 'song.dart';
 
 main() async {
@@ -47,7 +48,7 @@ class _MainWidgetState extends State<MainWidget> {
     NoticesHome(),
     CalendarHome(),
     SongsHome(),
-    AboutHome(),
+    PillarHome(),
     AboutHome(),
   ];
 

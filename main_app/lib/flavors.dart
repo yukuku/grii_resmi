@@ -2,6 +2,7 @@ const FLAVOR = String.fromEnvironment("FLAVOR");
 
 class Flavor {
   final String functionsPrefix;
+  final String pillarApiUrl = "https://www.buletinpillar.org/prog/api/app-apis.php";
 
   Flavor(this.functionsPrefix);
 
