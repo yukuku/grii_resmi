@@ -29,7 +29,7 @@ android {
     defaultConfig {
         applicationId "yuku.grii"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 29
         versionCode 400
         versionName "0.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
