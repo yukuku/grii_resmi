@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
+import 'package:grii_resmi/kri_whitelist.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -302,6 +303,25 @@ class _SongPageState extends State<SongPage> {
   }
 
   toolbarStartLoading() async {
+    // kri whitelist check
+    if (widget.bookName == 'KRI') {
+      if (!kriWhitelist.contains(widget.code)) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Text('Belum tersedia.'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      }
+      return;
+    }
+
     // check for existing file first
     final tempdir = await getSongFilesDir();
     final newfile = File("${tempdir.path}/${widget.bookName}_${widget.code}.mp3");
@@ -406,7 +426,7 @@ class _SongPageState extends State<SongPage> {
                 content: Text("Error! Couldn't get song file for ${widget.bookName} ${widget.code}.\n\n${SimpleAudioPlayer.errorNotifier.value}"),
                 actions: <Widget>[
                   FlatButton(
-                    child: Text('Oke'),
+                    child: Text('OK'),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
