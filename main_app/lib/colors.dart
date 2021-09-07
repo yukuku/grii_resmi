@@ -22,4 +22,5 @@ ThemeData griiThemeLight = ThemeData.light().copyWith(
 
 ThemeData griiThemeDark = ThemeData.dark().copyWith(
   primaryColor: griiColors,
+  scaffoldBackgroundColor: Color(0xff1B1E2F),
 );

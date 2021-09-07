@@ -26,6 +26,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   selectable_autolink_text: ^2.2.0
   syncfusion_flutter_pdfviewer: ^19.2.60-beta
+  transparent_image: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -48,3 +49,4 @@ flutter:
     - assets/drawable/
     - assets/KRI/
     - assets/pengakuan/
+    - assets/pillar/

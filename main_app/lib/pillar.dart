@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:grii_resmi/pillar_api.dart';
 
@@ -14,56 +15,50 @@ class PillarHome extends StatefulWidget {
 }
 
 class _PillarHomeState extends State<PillarHome> {
-  late Future<Response<LastIssueResponse>> _lastIssueFuture;
-  late Future<Response<IssuesResponse>> _issuesFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _lastIssueFuture = pillarApiService.getLastIssue();
-    _issuesFuture = pillarApiService.listAllIssues();
-  }
+  late Future<Response<LastIssueResponse>> _lastIssueFuture = pillarApiService.getLastIssue();
+  late Future<Response<IssuesResponse>> _issuesFuture = pillarApiService.listAllIssues();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Buletin PILLAR')),
-      body: FutureBuilder<Response<LastIssueResponse>>(
-        future: _lastIssueFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            recordGenericError(snapshot.error, stack: snapshot.stackTrace);
-            return Center(child: Text('${snapshot.error}'));
-          } else if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator.adaptive());
-          }
+      body: SafeArea(
+        child: FutureBuilder<Response<LastIssueResponse>>(
+          future: _lastIssueFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              recordGenericError(snapshot.error, stack: snapshot.stackTrace);
+              return Center(child: Text('${snapshot.error}'));
+            } else if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator.adaptive());
+            }
 
-          final lastIssueResponse = snapshot.requireData.body!;
-          return FutureBuilder<Response<IssuesResponse>>(
-            future: _issuesFuture,
-            builder: (context, snapshot) {
-              return FutureBuilder<Response<IssuesResponse>>(
-                future: _issuesFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    recordGenericError(snapshot.error, stack: snapshot.stackTrace);
-                    return Center(child: Text('${snapshot.error}'));
-                  } else if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator.adaptive());
-                  }
+            final lastIssueResponse = snapshot.requireData.body!;
+            return FutureBuilder<Response<IssuesResponse>>(
+              future: _issuesFuture,
+              builder: (context, snapshot) {
+                return FutureBuilder<Response<IssuesResponse>>(
+                  future: _issuesFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      recordGenericError(snapshot.error, stack: snapshot.stackTrace);
+                      return Center(child: Text('${snapshot.error}'));
+                    } else if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator.adaptive());
+                    }
 
-                  final issuesResponse = snapshot.requireData.body!;
-                  return FutureBuilder<Response<IssuesResponse>>(
-                    future: _issuesFuture,
-                    builder: (context, snapshot) {
-                      return _buildFilled(lastIssueResponse, issuesResponse);
-                    },
-                  );
-                },
-              );
-            },
-          );
-        },
+                    final issuesResponse = snapshot.requireData.body!;
+                    return FutureBuilder<Response<IssuesResponse>>(
+                      future: _issuesFuture,
+                      builder: (context, snapshot) {
+                        return _buildFilled(lastIssueResponse, issuesResponse);
+                      },
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -71,12 +66,28 @@ class _PillarHomeState extends State<PillarHome> {
   Widget _buildFilled(LastIssueResponse lastIssueResponse, IssuesResponse issuesResponse) {
     final lastIssueSliver = SliverList(
       delegate: SliverChildListDelegate([
-        Text('${lastIssueResponse.issue.issueNumber}'),
+        PillarCoverWidget(
+          issue: lastIssueResponse.issue,
+        ),
+        for (ArticleBrief article in lastIssueResponse.articles.items.where((a) => !a.category.monthly))
+          PillarArticleCard(article: article),
+      ]),
+    );
+
+    final oldIssuesHeadingSliver = SliverList(
+      delegate: SliverChildListDelegate([
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            'Edisi Lampau'.toUpperCase(),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
       ]),
     );
 
     final issues = issuesResponse.issues.items;
-    final issuesSliver = SliverGrid(
+    final oldIssuesSliver = SliverGrid(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 200.0,
         mainAxisSpacing: 10.0,
@@ -85,10 +96,18 @@ class _PillarHomeState extends State<PillarHome> {
       ),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
+          final issue = issues[index];
           return Column(
             children: [
-              Image.network(issues[index].thumbnailUrl),
-              Text('${issues[index].monthDisplay}'),
+              Container(
+                color: Colors.white,
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/pillar/issue_placeholder.jpg',
+                  image: issue.thumbnailUrl,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text('Edisi ${issue.issueNumber} | ${issue.monthDisplay}'),
             ],
           );
         },
@@ -97,81 +116,110 @@ class _PillarHomeState extends State<PillarHome> {
     );
 
     return CustomScrollView(
-      slivers: [lastIssueSliver, issuesSliver],
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(16),
+          sliver: lastIssueSliver,
+        ),
+        oldIssuesHeadingSliver,
+        SliverPadding(
+          padding: const EdgeInsets.all(16),
+          sliver: oldIssuesSliver,
+        ),
+      ],
     );
   }
 }
 
-class _IssueListSliver extends StatelessWidget {
-  const _IssueListSliver({Key? key}) : super(key: key);
+class PillarCoverWidget extends StatelessWidget {
+  final Issue issue;
 
-  @override
-  Widget build(BuildContext context) {
-    return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200.0,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
-        childAspectRatio: 4.0,
-      ),
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return Container(
-            alignment: Alignment.center,
-            color: Colors.teal[100 * (index % 9)],
-            child: Text('grid item $index'),
-          );
-        },
-        childCount: 20,
-      ),
-    );
-  }
-}
-
-class _ArticleListWidget extends StatelessWidget {
-  const _ArticleListWidget({
+  const PillarCoverWidget({
     Key? key,
+    required this.issue,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Response<ArticleBriefsResponse>>(
-      future: pillarApiService.listArticles(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text('Error ${snapshot.error}'));
-        }
-        if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
-        }
-        final items = snapshot.requireData.body?.articles.items ?? <ArticleBrief>[];
+    final dividerColor = Color(0xfffaf1d5);
+    final accentColor = Theme.of(context).accentColor;
 
-        String truncate(String s) {
-          if (s.length > 150) {
-            return s.substring(0, 150) + '...';
-          } else {
-            return s;
-          }
-        }
+    return Column(
+      children: [
+        Divider(thickness: 2, color: dividerColor),
+        IntrinsicHeight(
+          child: Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(4),
+              child: Text(
+                issue.issueNumber,
+                style: TextStyle(color: dividerColor, fontSize: 48, fontWeight: FontWeight.bold),
+              ),
+            ),
+            VerticalDivider(thickness: 4, color: dividerColor),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    issue.monthDisplay.toUpperCase(),
+                    style: TextStyle(color: dividerColor, fontSize: 22, letterSpacing: 1.5),
+                  ),
+                  const SizedBox(height: 4),
+                  Text('unduh pdf', style: TextStyle(color: accentColor, fontSize: 16)),
+                ],
+              ),
+            ),
+          ]),
+        ),
+        Divider(thickness: 2, color: dividerColor),
+      ],
+    );
+  }
+}
 
-        return ListView.builder(
-          padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final item = items[index];
+class PillarArticleCard extends StatelessWidget {
+  final ArticleBrief article;
 
-            return ListTile(
-              title: Text(item.title),
-              subtitle: HtmlWidget(truncate(item.snippet)),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return PillarArticlePage(item);
-                }));
-              },
-            );
-          },
-        );
-      },
+  const PillarArticleCard({
+    Key? key,
+    required this.article,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final dividerColor = Color(0xfffaf1d5);
+    final accentColor = Theme.of(context).accentColor;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          article.category.title.toUpperCase(),
+          style: TextStyle(letterSpacing: 1.5),
+        ),
+        Divider(thickness: 2, color: dividerColor),
+        Text(
+          article.title,
+          style: TextStyle(
+            color: dividerColor,
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+            height: 1.25,
+          ),
+        ),
+        SizedBox(height: 8),
+        HtmlWidget(
+          article.snippet,
+          textStyle: TextStyle(fontSize: 16),
+        ),
+        SizedBox(height: 8),
+        Text('selengkapnya', style: TextStyle(color: accentColor, fontSize: 16)),
+        SizedBox(height: 8),
+        Divider(thickness: 2, color: dividerColor),
+      ],
     );
   }
 }

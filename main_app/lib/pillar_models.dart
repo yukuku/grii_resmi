@@ -29,6 +29,7 @@ class ArticleBrief {
   late String name;
   late String title;
   late String snippet;
+  late Category category;
 
   ArticleBrief();
 
@@ -48,6 +49,18 @@ class ArticleFull {
   factory ArticleFull.fromJson(Map<String, dynamic> json) => _$ArticleFullFromJson(json);
 
   Map<String, dynamic> toJson() => _$ArticleFullToJson(this);
+}
+
+@JsonSerializable()
+class Category {
+  late String title;
+  late bool monthly;
+
+  Category();
+
+  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
 
 @JsonSerializable()

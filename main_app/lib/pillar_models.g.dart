@@ -38,7 +38,8 @@ ArticleBrief _$ArticleBriefFromJson(Map<String, dynamic> json) {
     ..id = json['_id'] as int
     ..name = json['name'] as String
     ..title = json['title'] as String
-    ..snippet = json['snippet'] as String;
+    ..snippet = json['snippet'] as String
+    ..category = Category.fromJson(json['category'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ArticleBriefToJson(ArticleBrief instance) =>
@@ -47,6 +48,7 @@ Map<String, dynamic> _$ArticleBriefToJson(ArticleBrief instance) =>
       'name': instance.name,
       'title': instance.title,
       'snippet': instance.snippet,
+      'category': instance.category,
     };
 
 ArticleFull _$ArticleFullFromJson(Map<String, dynamic> json) {
@@ -61,6 +63,17 @@ Map<String, dynamic> _$ArticleFullToJson(ArticleFull instance) =>
       'name': instance.name,
       'title': instance.title,
       'body': instance.body,
+    };
+
+Category _$CategoryFromJson(Map<String, dynamic> json) {
+  return Category()
+    ..title = json['title'] as String
+    ..monthly = json['monthly'] as bool;
+}
+
+Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
+      'title': instance.title,
+      'monthly': instance.monthly,
     };
 
 IssuesResponse _$IssuesResponseFromJson(Map<String, dynamic> json) {
