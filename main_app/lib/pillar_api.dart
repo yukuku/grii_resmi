@@ -1,26 +1,68 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:chopper/chopper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:grii_resmi/flavors.dart';
 import 'package:grii_resmi/installation_id.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart' as http;
+import 'package:http/http.dart' as http0;
+import 'package:package_info/package_info.dart';
 
-class ArticleBrief {
-  final int id;
-  final String name;
-  final String title;
-  final String snippet;
+import 'pillar_models.dart';
 
-  ArticleBrief({required this.id, required this.name, required this.title, required this.snippet});
+part 'pillar_api.chopper.dart';
+
+final _chopperJsonToTypeMap = {
+  ArticleBriefsResponse: (json) => ArticleBriefsResponse.fromJson(json),
+  String: (json) => json.toString(),
+};
+
+class JsonToTypeConverter extends JsonConverter {
+  final Map<Type, Function> typeToJsonFactoryMap;
+
+  JsonToTypeConverter(this.typeToJsonFactoryMap);
+
+  @override
+  Response<BodyType> convertResponse<BodyType, InnerType>(Response response) {
+    return response.copyWith(
+      body: fromJsonData<BodyType, InnerType>(response.body, typeToJsonFactoryMap[InnerType]!),
+    );
+  }
+
+  T? fromJsonData<T, InnerType>(String jsonData, Function jsonParser) {
+    final jsonMap = json.decode(jsonData);
+
+    if (jsonMap is List) {
+      return jsonMap.map((item) => jsonParser(item as Map<String, dynamic>) as InnerType).toList() as T;
+    }
+
+    return jsonParser(jsonMap);
+  }
 }
 
-class ArticleFull {
-  final String name;
-  final String title;
-  final String body;
-
-  ArticleFull({required this.name, required this.title, required this.body});
+ChopperClient createChopperClient(String baseUrl) {
+  return ChopperClient(
+    baseUrl: baseUrl,
+    client: kIsWeb ? null : http.IOClient(HttpClient()..connectionTimeout = Duration(seconds: 30)),
+    services: [PillarApiService.create()],
+    converter: JsonToTypeConverter(_chopperJsonToTypeMap),
+    interceptors: [
+      HttpLoggingInterceptor(),
+    ],
+  );
 }
+
+@ChopperApi()
+abstract class PillarApiService extends ChopperService {
+  static PillarApiService create([ChopperClient? client]) => _$PillarApiService(client);
+
+  @Get(path: '?method=listArticlesForCategory&articleId=2')
+  Future<Response<ArticleBriefsResponse>> getLatestArticles();
+}
+
+PillarApiService pillarApiService = createChopperClient(Flavor.current.pillarApiUrl).getService<PillarApiService>();
 
 String _encodeParams(Map<String, dynamic> params) {
   return params.entries
@@ -28,50 +70,24 @@ String _encodeParams(Map<String, dynamic> params) {
       .join('&');
 }
 
-void getLatestArticles(StreamController<List<ArticleBrief>> controller) async {
+Future<Map<String, dynamic>> _commonParams() async {
+  final pi = await PackageInfo.fromPlatform();
   final params = {
-    'method': 'listArticlesForCategory',
-    'category_id': '2',
     'source_platform': 'grii_resmi',
     'source_installation_id': getInstallationId(),
     'source_app_packageName': 'yuku.grii',
-    'source_app_versionCode': '0',
-    'source_app_debug': '0',
+    'source_app_versionCode': pi.buildNumber,
+    'source_app_debug': Flavor.current.name,
   };
-
-  final client = http.Client();
-
-  try {
-    final resp = await client.get(Uri.parse(Flavor.current.pillarApiUrl + '?' + _encodeParams(params)));
-    if (resp.statusCode == 200) {
-      final root = json.decode(resp.body);
-      final List<dynamic> items = root['articles']['items'];
-      final list = items
-          .map((item) =>
-              ArticleBrief(id: item['_id'], name: item['name'], title: item['title'], snippet: item['snippet']))
-          .toList();
-      controller.add(list);
-      controller.close();
-    } else {
-      throw Exception("bad status code ${resp.statusCode}");
-    }
-  } catch (e) {
-    controller.addError(e);
-  }
+  return params;
 }
 
 void getArticle(int articleId, StreamController<ArticleFull> controller) async {
-  final params = {
-    'method': 'getArticle',
-    'article_id': '$articleId',
-    'source_platform': 'grii_resmi',
-    'source_installation_id': getInstallationId(),
-    'source_app_packageName': 'yuku.grii',
-    'source_app_versionCode': '0',
-    'source_app_debug': '0',
-  };
+  final params = await _commonParams();
+  params['method'] = 'getArticle';
+  params['article_id'] = '$articleId';
 
-  final client = http.Client();
+  final client = http0.Client();
 
   try {
     final resp = await client.get(Uri.parse(Flavor.current.pillarApiUrl + '?' + _encodeParams(params)));

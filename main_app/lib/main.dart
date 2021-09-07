@@ -1,20 +1,73 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
+
+import 'package:device_info/device_info.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grii_resmi/colors.dart';
+import 'package:package_info/package_info.dart';
 
+import 'http_override.dart';
 import 'info.dart';
 import 'pillar.dart';
 import 'song.dart';
+
+Future<void> _setupHttpOverrides() async {
+  final deviceInfo = DeviceInfoPlugin();
+  final packageInfo = await PackageInfo.fromPlatform();
+
+  var useProxy = false;
+  bool? isAndroid;
+
+  if (!kIsWeb && Platform.isAndroid) {
+    isAndroid = true;
+    final androidInfo = await deviceInfo.androidInfo;
+    if (kDebugMode) {
+      print('Android MODEL is ${androidInfo.model}');
+    }
+    if (androidInfo.model == 'AOSP on IA Emulator' || androidInfo.model == 'Android SDK built for x86') {
+      print('Will use proxy');
+      useProxy = true;
+    }
+  }
+
+  if (!kIsWeb && Platform.isIOS) {
+    isAndroid = false;
+    final iosInfo = await deviceInfo.iosInfo;
+    if (kDebugMode) {
+      print('Ios MODEL is ${iosInfo.name}');
+    }
+    if (iosInfo.isPhysicalDevice != true) {
+      print('Will use proxy');
+      useProxy = true;
+    }
+  }
+
+  HttpOverrides.global = YukuHttpOverrides(packageInfo.version, useProxy, isAndroid);
+}
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-  runApp(MyApp());
+  await runZonedGuarded<Future<void>>(() async {
+    await _setupHttpOverrides();
+
+    Isolate.current.addErrorListener(RawReceivePort((pair) async {
+      final List<dynamic> errorAndStacktrace = pair;
+      await FirebaseCrashlytics.instance.recordError(
+        errorAndStacktrace.first,
+        errorAndStacktrace.last,
+      );
+    }).sendPort);
+
+    runApp(MyApp());
+  }, FirebaseCrashlytics.instance.recordError);
 }
 
 class MyApp extends StatelessWidget {

@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:grii_resmi/pillar_api.dart';
+
+import 'pillar_models.dart';
 
 class PillarHome extends StatefulWidget {
   @override
@@ -10,24 +13,12 @@ class PillarHome extends StatefulWidget {
 }
 
 class _PillarHomeState extends State<PillarHome> {
-  final _controller = StreamController<List<ArticleBrief>>(); // ignore: close_sinks
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
-
-  _init() {
-    getLatestArticles(_controller);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Buletin PILLAR')),
-      body: StreamBuilder<List<ArticleBrief>>(
-        stream: _controller.stream,
+      body: FutureBuilder<Response<ArticleBriefsResponse>>(
+        future: pillarApiService.getLatestArticles(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error ${snapshot.error}'));
@@ -35,7 +26,7 @@ class _PillarHomeState extends State<PillarHome> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          final items = snapshot.data!;
+          final items = snapshot.requireData.body?.articles.items ?? <ArticleBrief>[];
 
           String truncate(String s) {
             if (s.length > 150) {
