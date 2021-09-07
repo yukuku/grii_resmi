@@ -17,9 +17,16 @@ class _$PillarApiService extends PillarApiService {
   final definitionType = PillarApiService;
 
   @override
-  Future<Response<ArticleBriefsResponse>> getLatestArticles() {
-    final $url = '?method=listArticlesForCategory&articleId=2';
+  Future<Response<ArticleBriefsResponse>> listArticles() {
+    final $url = '?method=listArticlesForCategory&category_id=2';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<ArticleBriefsResponse, ArticleBriefsResponse>($request);
+  }
+
+  @override
+  Future<Response<IssuesResponse>> listAllIssues() {
+    final $url = '?method=listAllIssues';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<IssuesResponse, IssuesResponse>($request);
   }
 }

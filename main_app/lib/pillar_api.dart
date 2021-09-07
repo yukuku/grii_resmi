@@ -58,8 +58,11 @@ ChopperClient createChopperClient(String baseUrl) {
 abstract class PillarApiService extends ChopperService {
   static PillarApiService create([ChopperClient? client]) => _$PillarApiService(client);
 
-  @Get(path: '?method=listArticlesForCategory&articleId=2')
-  Future<Response<ArticleBriefsResponse>> getLatestArticles();
+  @Get(path: '?method=listArticlesForCategory&category_id=2')
+  Future<Response<ArticleBriefsResponse>> listArticles();
+
+  @Get(path: '?method=listAllIssues')
+  Future<Response<IssuesResponse>> listAllIssues();
 }
 
 PillarApiService pillarApiService = createChopperClient(Flavor.current.pillarApiUrl).getService<PillarApiService>();
@@ -94,7 +97,11 @@ void getArticle(int articleId, StreamController<ArticleFull> controller) async {
     if (resp.statusCode == 200) {
       final root = json.decode(resp.body);
       final dynamic item = root['article'];
-      controller.add(ArticleFull(name: item['name'], title: item['title'], body: item['body']));
+      var a = ArticleFull();
+      a.name = item['name'];
+      a.title = item['title'];
+      a.body = item['body'];
+      controller.add(a);
       controller.close();
     } else {
       throw Exception("bad status code ${resp.statusCode}");

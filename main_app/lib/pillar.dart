@@ -18,7 +18,7 @@ class _PillarHomeState extends State<PillarHome> {
     return Scaffold(
       appBar: AppBar(title: Text('Buletin PILLAR')),
       body: FutureBuilder<Response<ArticleBriefsResponse>>(
-        future: pillarApiService.getLatestArticles(),
+        future: pillarApiService.listArticles(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error ${snapshot.error}'));
@@ -94,6 +94,7 @@ class _PillarArticlePageState extends State<PillarArticlePage> {
         stream: _controller.stream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
+            print(snapshot.error);
             return Center(child: Text('Error ${snapshot.error}'));
           }
           if (!snapshot.hasData) {

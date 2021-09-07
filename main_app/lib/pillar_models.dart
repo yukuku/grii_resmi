@@ -4,9 +4,9 @@ part 'pillar_models.g.dart';
 
 @JsonSerializable()
 class ArticleBriefsResponse {
-  final ArticleBriefList articles;
+  late ArticleBriefList articles;
 
-  ArticleBriefsResponse(this.articles);
+  ArticleBriefsResponse();
 
   factory ArticleBriefsResponse.fromJson(Map<String, dynamic> json) => _$ArticleBriefsResponseFromJson(json);
 
@@ -14,11 +14,8 @@ class ArticleBriefsResponse {
 }
 
 @JsonSerializable()
-class ArticleBriefList {
-  final int total;
-  final List<ArticleBrief> items;
-
-  ArticleBriefList(this.total, this.items);
+class ArticleBriefList extends _PillarList<ArticleBrief> {
+  ArticleBriefList();
 
   factory ArticleBriefList.fromJson(Map<String, dynamic> json) => _$ArticleBriefListFromJson(json);
 
@@ -27,17 +24,13 @@ class ArticleBriefList {
 
 @JsonSerializable()
 class ArticleBrief {
-  final int id;
-  final String name;
-  final String title;
-  final String snippet;
+  @JsonKey(name: '_id')
+  late int id;
+  late String name;
+  late String title;
+  late String snippet;
 
-  ArticleBrief({
-    required this.id,
-    required this.name,
-    required this.title,
-    required this.snippet,
-  });
+  ArticleBrief();
 
   factory ArticleBrief.fromJson(Map<String, dynamic> json) => _$ArticleBriefFromJson(json);
 
@@ -46,17 +39,55 @@ class ArticleBrief {
 
 @JsonSerializable()
 class ArticleFull {
-  final String name;
-  final String title;
-  final String body;
+  late String name;
+  late String title;
+  late String body;
 
-  ArticleFull({
-    required this.name,
-    required this.title,
-    required this.body,
-  });
+  ArticleFull();
 
   factory ArticleFull.fromJson(Map<String, dynamic> json) => _$ArticleFullFromJson(json);
 
   Map<String, dynamic> toJson() => _$ArticleFullToJson(this);
+}
+
+@JsonSerializable()
+class IssuesResponse {
+  late IssueList issues;
+
+  IssuesResponse();
+
+  factory IssuesResponse.fromJson(Map<String, dynamic> json) => _$IssuesResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$IssuesResponseToJson(this);
+}
+
+@JsonSerializable()
+class IssueList extends _PillarList<Issue> {
+  IssueList();
+
+  factory IssueList.fromJson(Map<String, dynamic> json) => _$IssueListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$IssueListToJson(this);
+}
+
+@JsonSerializable()
+class Issue {
+  late String issueNumber;
+  late String yyyymm;
+  late String monthDisplay;
+  late String title;
+  late String thumbnailUrl;
+
+  Issue();
+
+  factory Issue.fromJson(Map<String, dynamic> json) => _$IssueFromJson(json);
+
+  Map<String, dynamic> toJson() => _$IssueToJson(this);
+}
+
+abstract class _PillarList<E> {
+  late int total;
+  late List<E> items;
+
+  _PillarList();
 }
