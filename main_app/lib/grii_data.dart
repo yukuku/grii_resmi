@@ -35,7 +35,7 @@ class _BodyText extends StatelessWidget {
 class _BulletText extends StatelessWidget {
   final String text;
 
-  const _BulletText(this.text, {Key key}) : super(key: key);
+  const _BulletText(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

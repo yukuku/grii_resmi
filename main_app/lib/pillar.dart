@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -36,7 +35,7 @@ class _PillarHomeState extends State<PillarHome> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          final items = snapshot.data;
+          final items = snapshot.data!;
 
           String truncate(String s) {
             if (s.length > 150) {
@@ -72,7 +71,7 @@ class _PillarHomeState extends State<PillarHome> {
 class PillarArticlePage extends StatefulWidget {
   final ArticleBrief articleBrief;
 
-  PillarArticlePage(this.articleBrief, {Key key}) : super(key: key);
+  PillarArticlePage(this.articleBrief, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -109,7 +108,7 @@ class _PillarArticlePageState extends State<PillarArticlePage> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          final item = snapshot.data;
+          final item = snapshot.data!;
           return SingleChildScrollView(
             padding: EdgeInsets.all(16.0),
             child: HtmlWidget(

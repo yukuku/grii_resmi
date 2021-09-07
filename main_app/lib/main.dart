@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MainWidget extends StatefulWidget {
-  MainWidget({Key key}) : super(key: key);
+  MainWidget({Key? key}) : super(key: key);
 
   @override
   _MainWidgetState createState() => _MainWidgetState();

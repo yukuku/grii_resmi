@@ -14,10 +14,10 @@ enum Status {
 class SimpleAudioPlayer {
   static MethodChannel _channel = new MethodChannel('simple_audio_player')..setMethodCallHandler(callHandler);
 
-  static final durationNotifier = new ValueNotifier<Duration>(null);
-  static final positionNotifier = new ValueNotifier<Duration>(null);
-  static final completeNotifier = new ValueNotifier<bool>(false);
-  static final errorNotifier = new ValueNotifier<String>(null);
+  static final durationNotifier = new ValueNotifier<Duration?>(null);
+  static final positionNotifier = new ValueNotifier<Duration?>(null);
+  static final completeNotifier = new ValueNotifier<bool?>(false);
+  static final errorNotifier = new ValueNotifier<String?>(null);
   static final statusNotifier = new ValueNotifier<Status>(Status.stopped);
 
   static Future<bool> setDataSourceUrl(String url) async {
@@ -76,19 +76,19 @@ class SimpleAudioPlayer {
     return res;
   }
 
-  static Future<bool> seek(Duration duration) async {
+  static Future<bool?> seek(Duration duration) async {
     return _channel.invokeMethod('seek', duration.inMilliseconds);
   }
 
   static Future<Duration> tell() async {
-    final int ms = await _channel.invokeMethod('tell');
+    final int ms = await (_channel.invokeMethod('tell') as FutureOr<int>);
     return new Duration(milliseconds: ms);
   }
 
   static Future<dynamic> callHandler(MethodCall call) async {
     switch (call.method) {
       case "onStatus":
-        final String name = call.arguments;
+        final String? name = call.arguments;
         statusNotifier.value = Status.values.singleWhere((v) => v.toString().endsWith(".$name"));
         break;
 

@@ -16,23 +16,23 @@ class InfoHome extends StatefulWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  final String/*!*/ assetPath;
+  final String assetPath;
   final String heroTag;
-  final String/*!*/ text;
-  final Function/*!*/ onTap;
+  final String text;
+  final Function onTap;
 
   const InfoCard({
-    Key key,
-    this.assetPath,
-    @required this.heroTag,
-    this.text,
-    this.onTap,
+    Key? key,
+    required this.assetPath,
+    required this.heroTag,
+    required this.text,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Card(
@@ -135,17 +135,17 @@ class _InfoHomeState extends State<InfoHome> {
 }
 
 class PengakuanPage extends StatefulWidget {
-  final String/*!*/ assetPath;
+  final String assetPath;
   final String heroTag;
-  final String/*!*/ title;
-  final List<Widget>/*!*/ bodyList;
+  final String title;
+  final List<Widget> bodyList;
 
   const PengakuanPage({
-    Key key,
-    this.assetPath,
-    @required this.heroTag,
-    this.title,
-    this.bodyList,
+    Key? key,
+    required this.assetPath,
+    required this.heroTag,
+    required this.title,
+    required this.bodyList,
   }) : super(key: key);
 
   @override
@@ -213,7 +213,7 @@ class _CabangPageState extends State<CabangPage> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          final pr = snapshot.data;
+          final pr = snapshot.data!;
 
           String display(String key) {
             return key.replaceFirst('->World->Indonesia->', '').replaceFirst('->World->', '');
@@ -229,7 +229,7 @@ class _CabangPageState extends State<CabangPage> {
 
               return CabangTile(
                 displayKey: display(key),
-                body: pr.keyToBody[key],
+                body: pr.keyToBody[key]!,
               );
             },
           );
@@ -240,10 +240,10 @@ class _CabangPageState extends State<CabangPage> {
 }
 
 class CabangTile extends StatefulWidget {
-  final String/*!*/ displayKey;
-  final String/*!*/ body;
+  final String displayKey;
+  final String body;
 
-  const CabangTile({Key key, this.displayKey, this.body}) : super(key: key);
+  const CabangTile({Key? key, required this.displayKey, required this.body}) : super(key: key);
 
   @override
   _CabangTileState createState() => _CabangTileState();

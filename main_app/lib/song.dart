@@ -10,11 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'simple_audio_player_compat.dart';
 
 class SongBook {
-  final String/*!*/ name;
-  final String/*!*/ title;
-  final String/*!*/ year;
+  final String name;
+  final String title;
+  final String year;
 
-  const SongBook({this.name, this.title, this.year});
+  const SongBook({required this.name, required this.title, required this.year});
 }
 
 const kPrefkeySongTextSizeZoom = 'songTextSizeZoom';
@@ -37,9 +37,9 @@ class SongsHome extends StatefulWidget {
 }
 
 class _SongsHomeState extends State<SongsHome> {
-  SearchBar searchBar;
-  String/*!*/ bookName = defaultSongBook.name;
-  String/*?*/ filterText;
+  late SearchBar searchBar;
+  String bookName = defaultSongBook.name;
+  String? filterText;
 
   _SongsHomeState() {
     searchBar = SearchBar(
@@ -52,7 +52,7 @@ class _SongsHomeState extends State<SongsHome> {
 
   void onSubmitted(String value) {
     setState(() {
-      if (value == null || value.isEmpty) {
+      if (value.isEmpty) {
         filterText = null;
       } else {
         filterText = value;
@@ -102,7 +102,7 @@ class _SongsHomeState extends State<SongsHome> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(filterText,
+                  child: Text(filterText!,
                       style: TextStyle(fontWeight: FontWeight.normal), overflow: TextOverflow.ellipsis),
                 ),
               ),
@@ -148,9 +148,9 @@ class _SongsHomeState extends State<SongsHome> {
 
 class SongListPage extends StatefulWidget {
   final String bookName;
-  final String filterText;
+  final String? filterText;
 
-  SongListPage(this.bookName, this.filterText, {Key key}) : super(key: key);
+  SongListPage(this.bookName, this.filterText, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -170,12 +170,15 @@ class _SongListPageState extends State<SongListPage> {
     loadSongHeaders(widget.bookName).then((headers) {
       final tokens = widget.filterText == null
           ? <String>[]
-          : widget.filterText.toLowerCase().split(RegExp(r'\s+')).map((token) => token.toLowerCase());
+          : widget.filterText!.toLowerCase().split(RegExp(r'\s+')).map((token) => token.toLowerCase());
 
-      final filtered = headers.where((header) => tokens.every((token) =>
-          header.code.contains(token) ||
-          (header.title != null && header.title.toLowerCase().contains(token)) ||
-          (header.titleOriginal != null && header.titleOriginal.toLowerCase().contains(token))));
+      final filtered = headers.where((header) => tokens.every((token) {
+            if (header.code.contains(token)) return true;
+            if (header.title.toLowerCase().contains(token)) return true;
+            final titleOriginal = header.titleOriginal;
+            if (titleOriginal != null && titleOriginal.toLowerCase().contains(token)) return true;
+            return false;
+          }));
 
       if (mounted) {
         setState(() {
@@ -209,9 +212,9 @@ class _SongListPageState extends State<SongListPage> {
         Text(headers[index].title),
       ]),
       subtitle: Row(children: <Widget>[
-        if (headers[index].titleOriginal.isNotEmpty) ...[
+        if (headers[index].titleOriginal != null) ...[
           SizedBox(width: 44.0),
-          Text(headers[index].titleOriginal),
+          Text(headers[index].titleOriginal!),
         ]
       ]),
       onTap: () {
@@ -226,7 +229,7 @@ class _SongListPageState extends State<SongListPage> {
 class SongHeader {
   final String code;
   final String title;
-  final String titleOriginal;
+  final String? titleOriginal;
 
   SongHeader(this.code, this.title, this.titleOriginal);
 }
@@ -248,7 +251,7 @@ class SongPage extends StatefulWidget {
   final String bookName;
   final String code;
 
-  SongPage(this.bookName, this.code, {Key key}) : super(key: key);
+  SongPage(this.bookName, this.code, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -258,16 +261,14 @@ class SongPage extends StatefulWidget {
 
 class _SongPageState extends State<SongPage> {
   get url => "http://files.bibleforandroid.com/addon/audio/songs/v2/${widget.bookName}_${widget.code}.mp3";
-  bool/*!*/ wantAutoStart;
+  bool wantAutoStart = false;
   bool downloadIsRunning = false;
-  int/*!*/ downloadProgress;
-  int/*!*/ downloadTotal;
+  int downloadProgress = 0;
+  int downloadTotal = 0;
 
   @override
   void initState() {
     super.initState();
-
-    wantAutoStart = false;
 
     SimpleAudioPlayer.stop();
 
@@ -318,7 +319,7 @@ class _SongPageState extends State<SongPage> {
           builder: (context) => AlertDialog(
             content: Text('Belum tersedia.'),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text('OK'),
                 onPressed: () => Navigator.of(context).pop(),
               ),
@@ -368,7 +369,7 @@ class _SongPageState extends State<SongPage> {
   processResponse(StreamedResponse resp) async {
     setState(() {
       downloadProgress = 0;
-      downloadTotal = resp.contentLength;
+      downloadTotal = resp.contentLength!;
     });
 
     final tempdir = await getSongFilesDir();
@@ -433,7 +434,7 @@ class _SongPageState extends State<SongPage> {
                 content: Text(
                     "Error! Couldn't get song file for ${widget.bookName} ${widget.code}.\n\n${SimpleAudioPlayer.errorNotifier.value}"),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text('OK'),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -455,8 +456,7 @@ class _SongPageState extends State<SongPage> {
         SizedBox(
           height: 4.0,
           child: downloadIsRunning
-              ? LinearProgressIndicator(
-                  value: downloadTotal == null || downloadTotal == 0 ? null : downloadProgress / downloadTotal)
+              ? LinearProgressIndicator(value: downloadTotal == 0 ? null : downloadProgress / downloadTotal)
               : Container(),
         ),
         Expanded(child: SongBody(widget.bookName, widget.code)),
@@ -481,10 +481,10 @@ class _SongBodyState extends State<SongBody> {
   final String bookName;
   final String code;
   final List<SongLine> lines = <SongLine>[];
-  AssetImage image;
-  SharedPreferences sp;
+  AssetImage? image;
+  SharedPreferences? sp;
   double zoom = 1.0;
-  double startZoom;
+  double? startZoom;
 
   _SongBodyState(this.bookName, this.code);
 
@@ -498,7 +498,7 @@ class _SongBodyState extends State<SongBody> {
     final lines = await loadSongLines(bookName, code);
     final image = await loadSongImage(bookName, code);
     sp = await SharedPreferences.getInstance();
-    zoom = sp.getDouble(kPrefkeySongTextSizeZoom) ?? 1.0;
+    zoom = sp!.getDouble(kPrefkeySongTextSizeZoom) ?? 1.0;
 
     setState(() {
       this.lines.addAll(lines);
@@ -510,13 +510,13 @@ class _SongBodyState extends State<SongBody> {
   Widget build(BuildContext context) {
     final originalTheme = Theme.of(context).textTheme;
     final textTheme = originalTheme.copyWith(
-      headline:
-          originalTheme.headline.copyWith(fontSize: 24.0 * zoom, backgroundColor: Colors.grey, color: Colors.white),
-      title: originalTheme.title.copyWith(fontSize: 24.0 * zoom),
-      subhead: originalTheme.subhead.copyWith(fontSize: 16.0 * zoom),
-      caption: originalTheme.caption.copyWith(fontSize: 14.0 * zoom, color: Colors.black),
-      body1: originalTheme.body1.copyWith(fontSize: 18.0 * zoom),
-      body2: originalTheme.body2.copyWith(fontSize: 16.0 * zoom),
+      headline5:
+          originalTheme.headline5?.copyWith(fontSize: 24.0 * zoom, backgroundColor: Colors.grey, color: Colors.white),
+      headline6: originalTheme.headline6?.copyWith(fontSize: 24.0 * zoom),
+      subtitle1: originalTheme.subtitle1?.copyWith(fontSize: 16.0 * zoom),
+      caption: originalTheme.caption?.copyWith(fontSize: 14.0 * zoom, color: Colors.black),
+      bodyText2: originalTheme.bodyText2?.copyWith(fontSize: 18.0 * zoom),
+      bodyText1: originalTheme.bodyText1?.copyWith(fontSize: 16.0 * zoom),
     );
 
     return GestureDetector(
@@ -533,13 +533,11 @@ class _SongBodyState extends State<SongBody> {
         ),
       ),
       onScaleStart: (ScaleStartDetails details) {
-        if (zoom != null) {
-          startZoom = zoom;
-        }
+        startZoom = zoom;
       },
       onScaleUpdate: (ScaleUpdateDetails details) {
         if (startZoom == null) return;
-        var newTextSizeZoom = details.scale * startZoom;
+        var newTextSizeZoom = details.scale * startZoom!;
         if (newTextSizeZoom < minTextSizeZoom) {
           newTextSizeZoom = minTextSizeZoom;
         } else if (newTextSizeZoom > maxTextSizeZoom) {
@@ -566,15 +564,15 @@ class _SongBodyState extends State<SongBody> {
     var style;
     switch (line.type) {
       case 'h1':
-        style = textTheme.title;
+        style = textTheme.headline6;
         break;
 
       case 'h2':
-        style = textTheme.subhead;
+        style = textTheme.subtitle1;
         break;
 
       case 'h3':
-        style = textTheme.body2;
+        style = textTheme.bodyText1;
         break;
 
       case 'h4':
@@ -582,23 +580,23 @@ class _SongBodyState extends State<SongBody> {
         break;
 
       case 'p':
-        style = textTheme.body1;
+        style = textTheme.bodyText2;
         break;
 
       case 'pi':
-        style = textTheme.body1.copyWith(fontStyle: FontStyle.italic);
+        style = textTheme.bodyText2?.copyWith(fontStyle: FontStyle.italic);
         break;
 
       case 'caption':
-        style = textTheme.subhead.copyWith(fontWeight: FontWeight.bold);
+        style = textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold);
         break;
 
       case 'no':
-        style = textTheme.headline;
+        style = textTheme.headline5;
         break;
     }
 
-    toRichText(String s, TextStyle style) {
+    toRichText(String s, TextStyle? style) {
       final spans = <TextSpan>[];
 
       int pos = 0;
@@ -645,7 +643,7 @@ class _SongBodyState extends State<SongBody> {
     return GestureDetector(
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-        child: Image(image: image),
+        child: Image(image: image!),
       ),
       onTap: () {
         openImageExternally(bookName, code);
@@ -685,7 +683,7 @@ List<String> splitInto2(String s, Pattern pattern) {
 Future<List<SongLine>> loadSongLines(String bookName, String code) async {
   final contents = await rootBundle.loadString("assets/$bookName/$code.flu");
   final lines = contents.split("\n");
-  final res = List<SongLine>();
+  final res = <SongLine>[];
   for (final line in lines) {
     if (line.length > 0) {
       final cols = splitInto2(line, ";");
@@ -695,7 +693,7 @@ Future<List<SongLine>> loadSongLines(String bookName, String code) async {
   return res;
 }
 
-Future<AssetImage> loadSongImage(String bookName, String code) async {
+Future<AssetImage?> loadSongImage(String bookName, String code) async {
   final assetName = "assets/$bookName/$code.webp";
   try {
     await rootBundle.load(assetName);

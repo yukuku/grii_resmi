@@ -75,16 +75,16 @@ class CalendarHomeState extends State<CalendarHome> {
 }
 
 class DayPage extends StatefulWidget {
-  final int/*!*/ dayNumber;
+  final int dayNumber;
 
-  DayPage({this.dayNumber});
+  DayPage({required this.dayNumber});
 
   @override
   State<StatefulWidget> createState() => _DayPageState();
 }
 
 class _DayPageState extends State<DayPage> {
-  final StreamController<List/*!*/> _controller = StreamController();
+  final StreamController<List> _controller = StreamController();
 
   Future fetchCalendar() async {
     final date = _dayNumberToDate(widget.dayNumber);
@@ -147,8 +147,8 @@ class _DayPageState extends State<DayPage> {
                   final startTime = DateTime.fromMillisecondsSinceEpoch((e['startTime'] * 1000.0).floor());
 
                   final String title = e['title'];
-                  final String speaker = e['speaker'];
-                  final String linkText = e['linkText'];
+                  final String? speaker = e['speaker'];
+                  final String? linkText = e['linkText'];
                   final String description = e['description'].toString().trim();
 
                   final linkOpen = (LinkableElement link) async {
@@ -202,7 +202,7 @@ class _DayPageState extends State<DayPage> {
                               text: linkText,
                               onOpen: linkOpen,
                             ),
-                          if (description != null && description.isNotEmpty)
+                          if (description.isNotEmpty)
                             Linkify(
                               text: description,
                               onOpen: linkOpen,
