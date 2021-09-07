@@ -30,7 +30,9 @@ String _dateTimeToDisplayTime(DateTime d) {
 
 String _dayNumberToDisplayDate(int dayNumber) {
   final d = DateTime.fromMillisecondsSinceEpoch(dayNumber * Duration.millisecondsPerDay).toLocal();
-  return ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'][d.weekday - 1] + ', ' + DateFormat('yyyy-MM-dd').format(d);
+  return ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'][d.weekday - 1] +
+      ', ' +
+      DateFormat('yyyy-MM-dd').format(d);
 }
 
 String _dayNumberToDate(int dayNumber) {
@@ -88,7 +90,8 @@ class _DayPageState extends State<DayPage> {
     final date = _dayNumberToDate(widget.dayNumber);
     final tzhm = _dayNumberToTzhm(widget.dayNumber);
 
-    final response = await Client().get('${Flavor.current.functionsPrefix}/calendar/v0/listDayEvents?local_date=$date&local_tzhm=${Uri.encodeQueryComponent(tzhm)}');
+    final response = await Client().get(Uri.parse(
+        '${Flavor.current.functionsPrefix}/calendar/v0/listDayEvents?local_date=$date&local_tzhm=${Uri.encodeQueryComponent(tzhm)}'));
 
     if (response.statusCode == 200) {
       _controller.add(json.decode(response.body));
@@ -163,8 +166,8 @@ class _DayPageState extends State<DayPage> {
 
                   return TimelineTile(
                     alignment: TimelineAlign.manual,
-                    lineX: 0.25,
-                    leftChild: Center(
+                    lineXY: 0.25,
+                    startChild: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(_dateTimeToDisplayTime(startTime)),
@@ -174,17 +177,17 @@ class _DayPageState extends State<DayPage> {
                       width: 16.0,
                       color: Theme.of(context).primaryColorDark,
                     ),
-                    topLineStyle: LineStyle(
-                      width: 2.0,
+                    beforeLineStyle: LineStyle(
+                      thickness: 2.0,
                       color: Theme.of(context).primaryColor,
                     ),
-                    bottomLineStyle: LineStyle(
-                      width: 2.0,
+                    afterLineStyle: LineStyle(
+                      thickness: 2.0,
                       color: Theme.of(context).primaryColor,
                     ),
                     isFirst: index == 0,
                     isLast: index == events.length - 1,
-                    rightChild: Padding(
+                    endChild: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

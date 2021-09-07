@@ -23,7 +23,9 @@ class ArticleFull {
 }
 
 String _encodeParams(Map<String, dynamic> params) {
-  return params.entries.map((e) => Uri.encodeQueryComponent(e.key) + '=' + Uri.encodeQueryComponent(e.value.toString())).join('&');
+  return params.entries
+      .map((e) => Uri.encodeQueryComponent(e.key) + '=' + Uri.encodeQueryComponent(e.value.toString()))
+      .join('&');
 }
 
 void getLatestArticles(StreamController<List<ArticleBrief>> controller) async {
@@ -40,11 +42,14 @@ void getLatestArticles(StreamController<List<ArticleBrief>> controller) async {
   final client = http.Client();
 
   try {
-    final resp = await client.get(Flavor.current.pillarApiUrl + '?' + _encodeParams(params));
+    final resp = await client.get(Uri.parse(Flavor.current.pillarApiUrl + '?' + _encodeParams(params)));
     if (resp.statusCode == 200) {
       final root = json.decode(resp.body);
       final List<dynamic> items = root['articles']['items'];
-      final list = items.map((item) => ArticleBrief(id: item['_id'], name: item['name'], title: item['title'], snippet: item['snippet'])).toList();
+      final list = items
+          .map((item) =>
+              ArticleBrief(id: item['_id'], name: item['name'], title: item['title'], snippet: item['snippet']))
+          .toList();
       controller.add(list);
       controller.close();
     } else {
@@ -69,7 +74,7 @@ void getArticle(int articleId, StreamController<ArticleFull> controller) async {
   final client = http.Client();
 
   try {
-    final resp = await client.get(Flavor.current.pillarApiUrl + '?' + _encodeParams(params));
+    final resp = await client.get(Uri.parse(Flavor.current.pillarApiUrl + '?' + _encodeParams(params)));
     if (resp.statusCode == 200) {
       final root = json.decode(resp.body);
       final dynamic item = root['article'];

@@ -7,7 +7,7 @@ import 'package:grii_resmi/kri_whitelist.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_audio_player/simple_audio_player.dart';
+import 'simple_audio_player_compat.dart';
 
 class SongBook {
   final String name;
@@ -102,7 +102,8 @@ class _SongsHomeState extends State<SongsHome> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(filterText, style: TextStyle(fontWeight: FontWeight.normal), overflow: TextOverflow.ellipsis),
+                  child: Text(filterText,
+                      style: TextStyle(fontWeight: FontWeight.normal), overflow: TextOverflow.ellipsis),
                 ),
               ),
             ]),
@@ -158,7 +159,7 @@ class SongListPage extends StatefulWidget {
 }
 
 class _SongListPageState extends State<SongListPage> {
-  final List<SongHeader> headers = List<SongHeader>();
+  final List<SongHeader> headers = <SongHeader>[];
 
   _SongListPageState();
 
@@ -167,9 +168,14 @@ class _SongListPageState extends State<SongListPage> {
     super.initState();
 
     loadSongHeaders(widget.bookName).then((headers) {
-      final tokens = widget.filterText == null ? <String>[] : widget.filterText.toLowerCase().split(RegExp(r'\s+')).map((token) => token.toLowerCase());
+      final tokens = widget.filterText == null
+          ? <String>[]
+          : widget.filterText.toLowerCase().split(RegExp(r'\s+')).map((token) => token.toLowerCase());
 
-      final filtered = headers.where((header) => tokens.every((token) => header.code.contains(token) || (header.title != null && header.title.toLowerCase().contains(token)) || (header.titleOriginal != null && header.titleOriginal.toLowerCase().contains(token))));
+      final filtered = headers.where((header) => tokens.every((token) =>
+          header.code.contains(token) ||
+          (header.title != null && header.title.toLowerCase().contains(token)) ||
+          (header.titleOriginal != null && header.titleOriginal.toLowerCase().contains(token))));
 
       if (mounted) {
         setState(() {
@@ -228,7 +234,7 @@ class SongHeader {
 Future<List<SongHeader>> loadSongHeaders(String bookName) async {
   final contents = await rootBundle.loadString("assets/$bookName/_list.txt");
   final lines = contents.split("\n");
-  final res = List<SongHeader>();
+  final res = <SongHeader>[];
   for (final line in lines) {
     if (line.length > 0) {
       final cols = line.split(";");
@@ -276,7 +282,8 @@ class _SongPageState extends State<SongPage> {
     setState(() {
       final status = SimpleAudioPlayer.statusNotifier.value;
 
-      print("SAP: ${status.toString()} ${SimpleAudioPlayer.positionNotifier.value}/${SimpleAudioPlayer.durationNotifier.value} ${SimpleAudioPlayer.completeNotifier.value} ${SimpleAudioPlayer.errorNotifier.value}");
+      print(
+          "SAP: ${status.toString()} ${SimpleAudioPlayer.positionNotifier.value}/${SimpleAudioPlayer.durationNotifier.value} ${SimpleAudioPlayer.completeNotifier.value} ${SimpleAudioPlayer.errorNotifier.value}");
 
       if (wantAutoStart == true && status == Status.paused) {
         SimpleAudioPlayer.play();
@@ -423,7 +430,8 @@ class _SongPageState extends State<SongPage> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                content: Text("Error! Couldn't get song file for ${widget.bookName} ${widget.code}.\n\n${SimpleAudioPlayer.errorNotifier.value}"),
+                content: Text(
+                    "Error! Couldn't get song file for ${widget.bookName} ${widget.code}.\n\n${SimpleAudioPlayer.errorNotifier.value}"),
                 actions: <Widget>[
                   FlatButton(
                     child: Text('OK'),
@@ -446,7 +454,10 @@ class _SongPageState extends State<SongPage> {
       body: Column(children: <Widget>[
         SizedBox(
           height: 4.0,
-          child: downloadIsRunning ? LinearProgressIndicator(value: downloadTotal == null || downloadTotal == 0 ? null : downloadProgress / downloadTotal) : Container(),
+          child: downloadIsRunning
+              ? LinearProgressIndicator(
+                  value: downloadTotal == null || downloadTotal == 0 ? null : downloadProgress / downloadTotal)
+              : Container(),
         ),
         Expanded(child: SongBody(widget.bookName, widget.code)),
       ]),
@@ -499,7 +510,8 @@ class _SongBodyState extends State<SongBody> {
   Widget build(BuildContext context) {
     final originalTheme = Theme.of(context).textTheme;
     final textTheme = originalTheme.copyWith(
-      headline: originalTheme.headline.copyWith(fontSize: 24.0 * zoom, backgroundColor: Colors.grey, color: Colors.white),
+      headline:
+          originalTheme.headline.copyWith(fontSize: 24.0 * zoom, backgroundColor: Colors.grey, color: Colors.white),
       title: originalTheme.title.copyWith(fontSize: 24.0 * zoom),
       subhead: originalTheme.subhead.copyWith(fontSize: 16.0 * zoom),
       caption: originalTheme.caption.copyWith(fontSize: 14.0 * zoom, color: Colors.black),
