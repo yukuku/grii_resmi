@@ -10,9 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'simple_audio_player_compat.dart';
 
 class SongBook {
-  final String name;
-  final String title;
-  final String year;
+  final String/*!*/ name;
+  final String/*!*/ title;
+  final String/*!*/ year;
 
   const SongBook({this.name, this.title, this.year});
 }
@@ -38,8 +38,8 @@ class SongsHome extends StatefulWidget {
 
 class _SongsHomeState extends State<SongsHome> {
   SearchBar searchBar;
-  String bookName = defaultSongBook.name;
-  String filterText;
+  String/*!*/ bookName = defaultSongBook.name;
+  String/*?*/ filterText;
 
   _SongsHomeState() {
     searchBar = SearchBar(
@@ -258,10 +258,10 @@ class SongPage extends StatefulWidget {
 
 class _SongPageState extends State<SongPage> {
   get url => "http://files.bibleforandroid.com/addon/audio/songs/v2/${widget.bookName}_${widget.code}.mp3";
-  bool wantAutoStart;
+  bool/*!*/ wantAutoStart;
   bool downloadIsRunning = false;
-  int downloadProgress;
-  int downloadTotal;
+  int/*!*/ downloadProgress;
+  int/*!*/ downloadTotal;
 
   @override
   void initState() {

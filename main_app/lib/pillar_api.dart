@@ -6,18 +6,18 @@ import 'package:grii_resmi/installation_id.dart';
 import 'package:http/http.dart' as http;
 
 class ArticleBrief {
-  final int id;
-  final String name;
-  final String title;
-  final String snippet;
+  final int/*!*/ id;
+  final String/*!*/ name;
+  final String/*!*/ title;
+  final String/*!*/ snippet;
 
   ArticleBrief({this.id, this.name, this.title, this.snippet});
 }
 
 class ArticleFull {
-  final String name;
-  final String title;
-  final String body;
+  final String/*!*/ name;
+  final String/*!*/ title;
+  final String/*!*/ body;
 
   ArticleFull({this.name, this.title, this.body});
 }

@@ -8,8 +8,8 @@ class NoticesHome extends StatefulWidget {
 }
 
 class Notice {
-  final DateTime createTime;
-  final String body;
+  final DateTime/*!*/ createTime;
+  final String/*!*/ body;
 
   Notice({this.createTime, this.body});
 }

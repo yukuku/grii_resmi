@@ -75,7 +75,7 @@ class CalendarHomeState extends State<CalendarHome> {
 }
 
 class DayPage extends StatefulWidget {
-  final int dayNumber;
+  final int/*!*/ dayNumber;
 
   DayPage({this.dayNumber});
 
@@ -84,7 +84,7 @@ class DayPage extends StatefulWidget {
 }
 
 class _DayPageState extends State<DayPage> {
-  final StreamController<List> _controller = StreamController();
+  final StreamController<List/*!*/> _controller = StreamController();
 
   Future fetchCalendar() async {
     final date = _dayNumberToDate(widget.dayNumber);

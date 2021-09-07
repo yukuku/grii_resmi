@@ -16,10 +16,10 @@ class InfoHome extends StatefulWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  final String assetPath;
+  final String/*!*/ assetPath;
   final String heroTag;
-  final String text;
-  final Function onTap;
+  final String/*!*/ text;
+  final Function/*!*/ onTap;
 
   const InfoCard({
     Key key,
@@ -135,10 +135,10 @@ class _InfoHomeState extends State<InfoHome> {
 }
 
 class PengakuanPage extends StatefulWidget {
-  final String assetPath;
+  final String/*!*/ assetPath;
   final String heroTag;
-  final String title;
-  final List<Widget> bodyList;
+  final String/*!*/ title;
+  final List<Widget>/*!*/ bodyList;
 
   const PengakuanPage({
     Key key,
@@ -240,8 +240,8 @@ class _CabangPageState extends State<CabangPage> {
 }
 
 class CabangTile extends StatefulWidget {
-  final String displayKey;
-  final String body;
+  final String/*!*/ displayKey;
+  final String/*!*/ body;
 
   const CabangTile({Key key, this.displayKey, this.body}) : super(key: key);
 
