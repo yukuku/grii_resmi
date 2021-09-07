@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grii_resmi/colors.dart';
 
 import 'info.dart';
@@ -40,7 +41,6 @@ class _MainWidgetState extends State<MainWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     Container(),
-    Container(),
     SongsHome(),
     PillarHome(),
     InfoHome(),
@@ -62,23 +62,19 @@ class _MainWidgetState extends State<MainWidget> {
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.rss_feed),
-            label: 'Berita',
+            icon: FaIcon(FontAwesomeIcons.video, size: 20),
+            label: 'Video',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Kegiatan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.music_note),
+            icon: FaIcon(FontAwesomeIcons.music, size: 20),
             label: 'KRI',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_florist),
-            label: 'Pillar',
+            icon: FaIcon(FontAwesomeIcons.bookReader, size: 20),
+            label: 'PILLAR',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
+            icon: FaIcon(FontAwesomeIcons.info, size: 20),
             label: 'Info',
           ),
         ],
