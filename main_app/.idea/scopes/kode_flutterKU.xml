@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="kode flutterKU" pattern="file[grii_resmi]:lib//*||file[grii_resmi]:assets//*||file[grii_resmi]:*" />
+</component>

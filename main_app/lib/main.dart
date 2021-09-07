@@ -4,9 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:grii_resmi/colors.dart';
 
-import 'calendar.dart';
 import 'info.dart';
-import 'notice.dart';
 import 'pillar.dart';
 import 'song.dart';
 
@@ -41,8 +39,8 @@ class MainWidget extends StatefulWidget {
 class _MainWidgetState extends State<MainWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
-    NoticesHome(),
-    CalendarHome(),
+    Container(),
+    Container(),
     SongsHome(),
     PillarHome(),
     InfoHome(),
@@ -73,7 +71,7 @@ class _MainWidgetState extends State<MainWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
-            label: 'Lagu',
+            label: 'KRI',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_florist),

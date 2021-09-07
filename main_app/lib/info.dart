@@ -91,9 +91,8 @@ class AboutTile extends StatelessWidget {
           'Aplikasi GRII',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Text('Yuku'),
         SizedBox(height: 32.0),
-        RaisedButton(
+        ElevatedButton(
           onPressed: () async {
             var version = '';
             if (!kIsWeb) {
