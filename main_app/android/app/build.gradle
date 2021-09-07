@@ -20,7 +20,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     lintOptions {
         disable 'InvalidPackage'
@@ -28,8 +28,8 @@ android {
 
     defaultConfig {
         applicationId "yuku.grii"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 400
         versionName "0.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -56,15 +56,11 @@ flutter {
 }
 
 dependencies {
-    androidTestCompile 'androidx.annotation:annotation:1.0.0'
-    androidTestCompile 'androidx.test.ext:junit:1.1.1'
-    androidTestCompile 'androidx.test:rules:1.1.1'
-    implementation 'com.google.firebase:firebase-analytics:16.5.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
 repositories {
     mavenCentral()
 }
 
-apply plugin: 'io.fabric'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

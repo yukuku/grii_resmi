@@ -6,22 +6,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_crashlytics: ^2.2.1
+  firebase_core: ^1.6.0
   flutter_search_bar: ^3.0.0-dev.1
+  flutter_widget_from_html_core: ^0.6.2
+  flutter_linkify: ^5.0.2
   http: ^0.13.3
+  intl: ^0.17.0
+  just_audio: ^0.9.10
+  package_info: ^2.0.2
   path_provider: ^2.0.3
   shared_preferences: ^2.0.7
-  package_info: ^2.0.2
   timeline_tile: ^2.0.0
-  flutter_linkify: ^5.0.2
   url_launcher: ^6.0.10
-  firebase_crashlytics: ^2.2.1
   uuid: ^3.0.4
-  flutter_widget_from_html_core: ^0.6.2
-  just_audio: ^0.9.10
-  intl: ^0.17.0
-
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:

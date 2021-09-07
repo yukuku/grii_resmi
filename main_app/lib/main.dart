@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'pillar.dart';
 import 'song.dart';
 
 main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   runApp(MyApp());
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'GRII',
       theme: ThemeData(primarySwatch: Colors.red),
       //home: MainWidget(),
-      home: SongsHome(),
+      home: MainWidget(),
     );
   }
 }
@@ -60,23 +63,23 @@ class _MainWidgetState extends State<MainWidget> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.rss_feed),
-            title: Text('Berita'),
+            label: 'Berita',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            title: Text('Kegiatan'),
+            label: 'Kegiatan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
-            title: Text('Lagu'),
+            label: 'Lagu',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_florist),
-            title: Text('Pillar'),
+            label: 'Pillar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.info_outline),
-            title: Text('Info'),
+            label: 'Info',
           ),
         ],
         currentIndex: _selectedIndex,
