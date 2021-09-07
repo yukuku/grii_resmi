@@ -62,6 +62,18 @@ class IssuesResponse {
 }
 
 @JsonSerializable()
+class LastIssueResponse {
+  late Issue issue;
+  late ArticleBriefList articles;
+
+  LastIssueResponse();
+
+  factory LastIssueResponse.fromJson(Map<String, dynamic> json) => _$LastIssueResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LastIssueResponseToJson(this);
+}
+
+@JsonSerializable()
 class IssueList extends _PillarList<Issue> {
   IssueList();
 
@@ -75,7 +87,6 @@ class Issue {
   late String issueNumber;
   late String yyyymm;
   late String monthDisplay;
-  late String title;
   late String thumbnailUrl;
 
   Issue();

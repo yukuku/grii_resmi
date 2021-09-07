@@ -137,3 +137,12 @@ class _MainWidgetState extends State<MainWidget> {
     );
   }
 }
+
+void recordGenericError(dynamic error, {StackTrace? stack, String? reason}) {
+  FirebaseCrashlytics.instance.recordError(
+    error,
+    stack,
+    reason: reason ?? 'Generic error',
+    printDetails: true,
+  );
+}

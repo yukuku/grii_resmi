@@ -6,6 +6,7 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grii_resmi/flavors.dart';
 import 'package:grii_resmi/installation_id.dart';
+import 'package:grii_resmi/main.dart';
 import 'package:http/io_client.dart' as http;
 import 'package:http/http.dart' as http0;
 import 'package:package_info/package_info.dart';
@@ -16,6 +17,8 @@ part 'pillar_api.chopper.dart';
 
 final _chopperJsonToTypeMap = {
   ArticleBriefsResponse: (json) => ArticleBriefsResponse.fromJson(json),
+  IssuesResponse: (json) => IssuesResponse.fromJson(json),
+  LastIssueResponse: (json) => LastIssueResponse.fromJson(json),
   String: (json) => json.toString(),
 };
 
@@ -26,8 +29,12 @@ class JsonToTypeConverter extends JsonConverter {
 
   @override
   Response<BodyType> convertResponse<BodyType, InnerType>(Response response) {
+    final factory = typeToJsonFactoryMap[InnerType];
+    if (factory == null) {
+      recordGenericError('factory should not be null for $InnerType');
+    }
     return response.copyWith(
-      body: fromJsonData<BodyType, InnerType>(response.body, typeToJsonFactoryMap[InnerType]!),
+      body: fromJsonData<BodyType, InnerType>(response.body, factory!),
     );
   }
 
@@ -63,6 +70,9 @@ abstract class PillarApiService extends ChopperService {
 
   @Get(path: '?method=listAllIssues')
   Future<Response<IssuesResponse>> listAllIssues();
+
+  @Get(path: '?method=getLastIssue')
+  Future<Response<LastIssueResponse>> getLastIssue();
 }
 
 PillarApiService pillarApiService = createChopperClient(Flavor.current.pillarApiUrl).getService<PillarApiService>();

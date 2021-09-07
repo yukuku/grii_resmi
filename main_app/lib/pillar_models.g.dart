@@ -73,6 +73,19 @@ Map<String, dynamic> _$IssuesResponseToJson(IssuesResponse instance) =>
       'issues': instance.issues,
     };
 
+LastIssueResponse _$LastIssueResponseFromJson(Map<String, dynamic> json) {
+  return LastIssueResponse()
+    ..issue = Issue.fromJson(json['issue'] as Map<String, dynamic>)
+    ..articles =
+        ArticleBriefList.fromJson(json['articles'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$LastIssueResponseToJson(LastIssueResponse instance) =>
+    <String, dynamic>{
+      'issue': instance.issue,
+      'articles': instance.articles,
+    };
+
 IssueList _$IssueListFromJson(Map<String, dynamic> json) {
   return IssueList()
     ..total = json['total'] as int
@@ -91,7 +104,6 @@ Issue _$IssueFromJson(Map<String, dynamic> json) {
     ..issueNumber = json['issueNumber'] as String
     ..yyyymm = json['yyyymm'] as String
     ..monthDisplay = json['monthDisplay'] as String
-    ..title = json['title'] as String
     ..thumbnailUrl = json['thumbnailUrl'] as String;
 }
 
@@ -99,6 +111,5 @@ Map<String, dynamic> _$IssueToJson(Issue instance) => <String, dynamic>{
       'issueNumber': instance.issueNumber,
       'yyyymm': instance.yyyymm,
       'monthDisplay': instance.monthDisplay,
-      'title': instance.title,
       'thumbnailUrl': instance.thumbnailUrl,
     };

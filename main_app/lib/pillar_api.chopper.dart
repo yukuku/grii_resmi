@@ -29,4 +29,11 @@ class _$PillarApiService extends PillarApiService {
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<IssuesResponse, IssuesResponse>($request);
   }
+
+  @override
+  Future<Response<LastIssueResponse>> getLastIssue() {
+    final $url = '?method=getLastIssue';
+    final $request = Request('GET', $url, client.baseUrl);
+    return client.send<LastIssueResponse, LastIssueResponse>($request);
+  }
 }
