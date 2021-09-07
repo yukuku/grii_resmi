@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grii_resmi/cabang_parser.dart';
 import 'package:grii_resmi/grii_data.dart';
 import 'package:package_info/package_info.dart';
@@ -14,6 +15,59 @@ class InfoHome extends StatefulWidget {
   _InfoHomeState createState() => _InfoHomeState();
 }
 
+class InfoCard extends StatelessWidget {
+  final String assetPath;
+  final String heroTag;
+  final String text;
+  final Function onTap;
+
+  const InfoCard({
+    Key key,
+    this.assetPath,
+    @required this.heroTag,
+    this.text,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          elevation: 8,
+          child: Stack(
+            children: [
+              Hero(
+                tag: heroTag,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(assetPath),
+                ),
+              ),
+              PositionedDirectional(
+                bottom: 0,
+                child: Container(
+                  color: Color(0x77000000),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      text,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _InfoHomeState extends State<InfoHome> {
   @override
   Widget build(BuildContext context) {
@@ -23,18 +77,30 @@ class _InfoHomeState extends State<InfoHome> {
       ),
       body: ListView(
         children: [
-          ListTile(
-            leading: Icon(Icons.sync_problem),
-            title: Text('Pengakuan Iman Reformed Injili'),
+          InfoCard(
+            assetPath: 'assets/pengakuan/new_rmci_kebaktian_1400x750.webp',
+            heroTag: 'pengakuanIman',
+            text: 'Pengakuan Iman Reformed Injili',
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => PengakuanPage(title: 'Pengakuan Iman Reformed Injili', bodyList: pengakuanIman),
+              builder: (context) => PengakuanPage(
+                assetPath: 'assets/pengakuan/new_rmci_kebaktian_1400x750.webp',
+                heroTag: 'pengakuanIman',
+                title: 'Pengakuan Iman Reformed Injili',
+                bodyList: pengakuanIman,
+              ),
             )),
           ),
-          ListTile(
-            leading: Icon(Icons.wifi),
-            title: Text('Pengakuan Iman Penginjilan'),
+          InfoCard(
+            assetPath: 'assets/pengakuan/new_KPIN_1400x450.webp',
+            heroTag: 'pengakuanPenginjilan',
+            text: 'Pengakuan Iman Penginjilan',
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => PengakuanPage(title: 'Pengakuan Iman Penginjilan', bodyList: pengakuanPenginjilan),
+              builder: (context) => PengakuanPage(
+                assetPath: 'assets/pengakuan/new_KPIN_1400x450.webp',
+                heroTag: 'pengakuanPenginjilan',
+                title: 'Pengakuan Iman Penginjilan',
+                bodyList: pengakuanPenginjilan,
+              ),
             )),
           ),
           ListTile(
@@ -44,10 +110,24 @@ class _InfoHomeState extends State<InfoHome> {
               builder: (context) => CabangPage(),
             )),
           ),
-          SizedBox(
-            height: 48.0,
+          ListTile(
+            leading: FaIcon(FontAwesomeIcons.infoCircle),
+            title: Text('Versi aplikasi'),
+            onTap: () async {
+              var version = '';
+              if (!kIsWeb) {
+                final pi = await PackageInfo.fromPlatform();
+                version = "${pi.version} (${pi.buildNumber})";
+              }
+              version += ' $FLAVOR';
+
+              showAboutDialog(
+                context: context,
+                applicationIcon: Image(image: AssetImage('assets/drawable/ic_launcher.png')),
+                applicationVersion: version,
+              );
+            },
           ),
-          AboutTile(),
         ],
       ),
     );
@@ -55,10 +135,18 @@ class _InfoHomeState extends State<InfoHome> {
 }
 
 class PengakuanPage extends StatefulWidget {
+  final String assetPath;
+  final String heroTag;
   final String title;
   final List<Widget> bodyList;
 
-  const PengakuanPage({Key key, this.title, this.bodyList}) : super(key: key);
+  const PengakuanPage({
+    Key key,
+    this.assetPath,
+    @required this.heroTag,
+    this.title,
+    this.bodyList,
+  }) : super(key: key);
 
   @override
   _PengakuanPageState createState() => _PengakuanPageState();
@@ -72,44 +160,18 @@ class _PengakuanPageState extends State<PengakuanPage> {
         title: Text(widget.title),
       ),
       body: ListView.separated(
-        padding: EdgeInsets.all(16.0),
-        separatorBuilder: (context, index) => SizedBox(height: 8.0),
-        itemCount: widget.bodyList.length,
-        itemBuilder: (context, index) => widget.bodyList[index],
+        separatorBuilder: (context, index) => SizedBox(height: 12.0),
+        itemCount: 1 + widget.bodyList.length,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Hero(tag: widget.heroTag, child: Image.asset(widget.assetPath));
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+            child: widget.bodyList[index - 1],
+          );
+        },
       ),
-    );
-  }
-}
-
-class AboutTile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Aplikasi GRII',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 32.0),
-        ElevatedButton(
-          onPressed: () async {
-            var version = '';
-            if (!kIsWeb) {
-              final pi = await PackageInfo.fromPlatform();
-              version = "${pi.version} (${pi.buildNumber})";
-            }
-            version += ' $FLAVOR';
-
-            showAboutDialog(
-              context: context,
-              applicationIcon: Image(image: AssetImage('assets/drawable/ic_launcher.png')),
-              applicationVersion: version,
-            );
-          },
-          child: Text('Info versi'),
-        )
-      ],
     );
   }
 }
