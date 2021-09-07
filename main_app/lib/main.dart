@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:grii_resmi/colors.dart';
 
 import 'calendar.dart';
 import 'info.dart';
@@ -22,8 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GRII',
-      theme: ThemeData(primarySwatch: Colors.red),
-      //home: MainWidget(),
+      theme: griiThemeLight,
+      darkTheme: griiThemeDark,
+      themeMode: ThemeMode.dark,
       home: MainWidget(),
     );
   }
