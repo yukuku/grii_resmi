@@ -6,11 +6,11 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grii_resmi/flavors.dart';
 import 'package:grii_resmi/installation_id.dart';
-import 'package:grii_resmi/main.dart';
-import 'package:http/io_client.dart' as http;
 import 'package:http/http.dart' as http0;
+import 'package:http/io_client.dart' as http;
 import 'package:package_info/package_info.dart';
 
+import 'json_to_type_converter.dart';
 import 'pillar_models.dart';
 
 part 'pillar_api.chopper.dart';
@@ -21,33 +21,6 @@ final _chopperJsonToTypeMap = {
   LastIssueResponse: (json) => LastIssueResponse.fromJson(json),
   String: (json) => json.toString(),
 };
-
-class JsonToTypeConverter extends JsonConverter {
-  final Map<Type, Function> typeToJsonFactoryMap;
-
-  JsonToTypeConverter(this.typeToJsonFactoryMap);
-
-  @override
-  Response<BodyType> convertResponse<BodyType, InnerType>(Response response) {
-    final factory = typeToJsonFactoryMap[InnerType];
-    if (factory == null) {
-      recordGenericError('factory should not be null for $InnerType');
-    }
-    return response.copyWith(
-      body: fromJsonData<BodyType, InnerType>(response.body, factory!),
-    );
-  }
-
-  T? fromJsonData<T, InnerType>(String jsonData, Function jsonParser) {
-    final jsonMap = json.decode(jsonData);
-
-    if (jsonMap is List) {
-      return jsonMap.map((item) => jsonParser(item as Map<String, dynamic>) as InnerType).toList() as T;
-    }
-
-    return jsonParser(jsonMap);
-  }
-}
 
 ChopperClient createChopperClient(String baseUrl) {
   return ChopperClient(

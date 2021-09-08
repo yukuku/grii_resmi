@@ -4,6 +4,7 @@ class Flavor {
   final String name;
   final String functionsPrefix;
   final String pillarApiUrl = "https://www.buletinpillar.org/prog/api/app-apis.php";
+  final String kitaApiUrl = "https://pulau-salamis.herokuapp.com/kita/";
 
   Flavor({
     required this.name,
