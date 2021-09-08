@@ -97,7 +97,7 @@ class _MainWidgetState extends State<MainWidget> {
     Container(),
     SongsHome(),
     PillarHome(),
-    KitaHome(),
+    KitaEdisiListScreen(),
     InfoHome(),
   ];
 
