@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grii_resmi/colors.dart';
+import 'package:grii_resmi/kita.dart';
 import 'package:package_info/package_info.dart';
 
 import 'http_override.dart';
@@ -96,6 +97,7 @@ class _MainWidgetState extends State<MainWidget> {
     Container(),
     SongsHome(),
     PillarHome(),
+    KitaHome(),
     InfoHome(),
   ];
 
@@ -125,6 +127,10 @@ class _MainWidgetState extends State<MainWidget> {
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.bookReader, size: 20),
             label: 'PILLAR',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.child, size: 20),
+            label: 'KiTa',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.info, size: 20),

@@ -47,6 +47,7 @@ flutter:
   assets:
     - assets/cabang/
     - assets/drawable/
+    - assets/kita/
     - assets/KRI/
     - assets/pengakuan/
     - assets/pillar/

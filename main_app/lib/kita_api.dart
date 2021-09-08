@@ -8,7 +8,6 @@ import 'package:grii_resmi/kita_models.dart';
 import 'package:http/io_client.dart' as http;
 
 import 'json_to_type_converter.dart';
-import 'pillar_models.dart';
 
 part 'kita_api.chopper.dart';
 
@@ -35,10 +34,10 @@ abstract class KitaApiService extends ChopperService {
   static KitaApiService create([ChopperClient? client]) => _$KitaApiService(client);
 
   @Get(path: 'list_edisi')
-  Future<Response<IssuesResponse>> listEdisis();
+  Future<Response<ListEdisiResponse>> listEdisis();
 
   @Get(path: 'edisi')
-  Future<Response<LastIssueResponse>> getEdisi(@Query('edisi_page_url') String edisi_page_url);
+  Future<Response<EdisiResponse>> getEdisi(@Query('edisi_page_url') String edisi_page_url);
 }
 
 KitaApiService kitaApiService = createChopperClient(Flavor.current.kitaApiUrl).getService<KitaApiService>();
