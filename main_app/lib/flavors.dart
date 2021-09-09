@@ -18,13 +18,11 @@ class Flavor {
           name: 'qa',
           functionsPrefix: 'http://10.0.2.2:5001/pulau-kreta/us-central1',
         );
-      case "prod":
+      default:
         return Flavor(
           name: 'prod',
           functionsPrefix: 'https://us-central1-pulau-kreta.cloudfunctions.net',
         );
-      default:
-        throw UnsupportedError("Flavor is not defined or supported: $FLAVOR");
     }
   }
 }

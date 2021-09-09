@@ -1,5 +1,5 @@
 name: grii_resmi
-version: 0.3.0+30
+version: 0.3.1+31
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
