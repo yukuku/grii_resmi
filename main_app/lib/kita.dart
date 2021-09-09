@@ -4,6 +4,7 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:grii_resmi/kita_models.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'kita_api.dart';
 import 'main.dart';
@@ -132,8 +133,36 @@ class KitaEdisiScreen extends StatelessWidget {
           SizedBox(height: 8),
           Image.network(edisi.edisi_image),
           SizedBox(height: 8),
-          Text('unduh pdf', style: TextStyle(color: accentColor, fontSize: 16)),
+          for (final download in edisi.downloads)
+            ElevatedButton(
+              child: Text(download.title, style: TextStyle(color: accentColor, fontSize: 24)),
+              onPressed: () async {
+                await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => KitaPdfViewScreen(
+                    pdfUrl: download.url,
+                  ),
+                ));
+              },
+            ),
         ],
+      ),
+    );
+  }
+}
+
+class KitaPdfViewScreen extends StatelessWidget {
+  final String pdfUrl;
+
+  KitaPdfViewScreen({
+    Key? key,
+    required this.pdfUrl,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SfPdfViewer.network(pdfUrl),
       ),
     );
   }
