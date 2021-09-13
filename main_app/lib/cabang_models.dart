@@ -4,7 +4,7 @@ part 'cabang_models.g.dart';
 
 @JsonSerializable()
 class ListCabangResponse {
-  late CabangList edisis;
+  late CabangList cabangs;
 
   ListCabangResponse();
 

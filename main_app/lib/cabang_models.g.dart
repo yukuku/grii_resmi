@@ -8,12 +8,12 @@ part of 'cabang_models.dart';
 
 ListCabangResponse _$ListCabangResponseFromJson(Map<String, dynamic> json) {
   return ListCabangResponse()
-    ..edisis = CabangList.fromJson(json['edisis'] as Map<String, dynamic>);
+    ..cabangs = CabangList.fromJson(json['cabangs'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ListCabangResponseToJson(ListCabangResponse instance) =>
     <String, dynamic>{
-      'edisis': instance.edisis,
+      'cabangs': instance.cabangs,
     };
 
 CabangList _$CabangListFromJson(Map<String, dynamic> json) {

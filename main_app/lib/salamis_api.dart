@@ -15,6 +15,7 @@ part 'salamis_api.chopper.dart';
 final _chopperJsonToTypeMap = {
   ListEdisiResponse: (json) => ListEdisiResponse.fromJson(json),
   EdisiResponse: (json) => EdisiResponse.fromJson(json),
+  ListCabangResponse: (json) => ListCabangResponse.fromJson(json),
   String: (json) => json.toString(),
 };
 

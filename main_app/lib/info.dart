@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:chopper/chopper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_treeview/flutter_treeview.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:grii_resmi/cabang_parser.dart';
 import 'package:grii_resmi/grii_data.dart';
+import 'package:grii_resmi/salamis_api.dart';
 import 'package:package_info/package_info.dart';
 
+import 'cabang_models.dart';
 import 'flavors.dart';
+import 'main.dart';
 
 class InfoHome extends StatefulWidget {
   @override
@@ -182,86 +185,86 @@ class CabangScreen extends StatefulWidget {
 }
 
 class _CabangScreenState extends State<CabangScreen> {
-  final _controller = StreamController<CabangParseResult>();
-
-  Future<CabangParseResult> loadCabang() async {
-    final contents = await rootBundle.loadString("assets/cabang/semua.txt");
-    final lines = contents.split("\n");
-    return parseCabang(lines);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _init();
-  }
-
-  _init() async {
-    final pr = await loadCabang();
-    _controller.add(pr);
-  }
+  late Future<Response<ListCabangResponse>> _cabangsFuture = salamisApiService.listCabangs();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Cabang-cabang GRII"),
-      ),
-      body: StreamBuilder<CabangParseResult>(
-        stream: _controller.stream,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          }
-          final pr = snapshot.data!;
-
-          String display(String key) {
-            return key.replaceFirst('->World->Indonesia->', '').replaceFirst('->World->', '');
-          }
-
-          final keys = pr.keyToBody.keys.toList();
-          keys.sort((a, b) => display(a).compareTo(display(b)));
-
-          return ListView.builder(
-            itemCount: keys.length,
-            itemBuilder: (context, index) {
-              final key = keys[index];
-
-              return CabangTile(
-                displayKey: display(key),
-                body: pr.keyToBody[key]!,
-              );
-            },
-          );
-        },
+    return SafeArea(
+      child: Scaffold(
+        body: FutureBuilder<Response<ListCabangResponse>>(
+          future: _cabangsFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              recordGenericError(snapshot.error, stack: snapshot.stackTrace);
+              return Center(child: Text('${snapshot.error}'));
+            } else if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator.adaptive());
+            }
+            final cabangs = snapshot.requireData.body!.cabangs.items;
+            return CabangTree(cabangs, Theme.of(context).colorScheme);
+          },
+        ),
       ),
     );
   }
 }
 
-class CabangTile extends StatefulWidget {
-  final String displayKey;
-  final String body;
+class CabangTree extends StatefulWidget {
+  final ColorScheme colorScheme;
+  late List<Node<Cabang>> rootNodes;
 
-  const CabangTile({Key? key, required this.displayKey, required this.body}) : super(key: key);
+  CabangTree(List<Cabang> cabangs, this.colorScheme, {Key? key}) : super(key: key) {
+    // preprocess
+    final byPath = <String, Cabang>{};
+    final childrenMap = <String, List<Cabang>>{};
+    for (final cabang in cabangs) {
+      byPath[cabang.path] = cabang;
+      final bef = cabang.path.lastIndexOf('/');
+      final parentPath = cabang.path.substring(0, bef);
+      childrenMap.putIfAbsent(parentPath, () => <Cabang>[]);
+      childrenMap[parentPath]?.add(cabang);
+    }
+
+    List<Node<Cabang>> listNodes(String parentPath) {
+      final res = <Node<Cabang>>[];
+      final children = childrenMap[parentPath];
+      if (children != null) {
+        for (final child in children) {
+          final unders = listNodes(child.path);
+          res.add(Node<Cabang>(
+            key: child.path,
+            label: child.title,
+            icon: unders.isEmpty ? FontAwesomeIcons.church : null,
+            iconColor: colorScheme.onSurface,
+            children: unders,
+          ));
+        }
+      }
+      return res;
+    }
+
+    rootNodes = listNodes('');
+  }
 
   @override
-  _CabangTileState createState() => _CabangTileState();
+  _CabangTreeState createState() => _CabangTreeState();
 }
 
-class _CabangTileState extends State<CabangTile> {
-  bool expanded = false;
+class _CabangTreeState extends State<CabangTree> {
+  late TreeViewController _controller = TreeViewController(children: widget.rootNodes);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(widget.displayKey),
-      subtitle: expanded ? Text(widget.body) : null,
-      onTap: () {
-        setState(() {
-          expanded = !expanded;
-        });
-      },
+    return TreeView(
+      controller: _controller,
+      theme: TreeViewTheme(
+        colorScheme: widget.colorScheme,
+        expanderTheme: ExpanderThemeData(color: widget.colorScheme.onSurface, type: ExpanderType.chevron),
+        iconTheme: IconThemeData(size: 16),
+        parentLabelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        labelStyle: TextStyle(fontSize: 16),
+        iconPadding: 16,
+      ),
     );
   }
 }
