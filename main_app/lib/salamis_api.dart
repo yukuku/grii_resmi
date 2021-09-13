@@ -3,13 +3,14 @@ import 'dart:io';
 
 import 'package:chopper/chopper.dart';
 import 'package:flutter/foundation.dart';
-import 'package:grii_resmi/flavors.dart';
-import 'package:grii_resmi/kita_models.dart';
 import 'package:http/io_client.dart' as http;
 
+import 'cabang_models.dart';
+import 'flavors.dart';
 import 'json_to_type_converter.dart';
+import 'kita_models.dart';
 
-part 'kita_api.chopper.dart';
+part 'salamis_api.chopper.dart';
 
 final _chopperJsonToTypeMap = {
   ListEdisiResponse: (json) => ListEdisiResponse.fromJson(json),
@@ -21,7 +22,7 @@ ChopperClient createChopperClient(String baseUrl) {
   return ChopperClient(
     baseUrl: baseUrl,
     client: kIsWeb ? null : http.IOClient(HttpClient()..connectionTimeout = Duration(seconds: 30)),
-    services: [KitaApiService.create()],
+    services: [SalamisApiService.create()],
     converter: JsonToTypeConverter(_chopperJsonToTypeMap),
     interceptors: [
       HttpLoggingInterceptor(),
@@ -30,14 +31,17 @@ ChopperClient createChopperClient(String baseUrl) {
 }
 
 @ChopperApi()
-abstract class KitaApiService extends ChopperService {
-  static KitaApiService create([ChopperClient? client]) => _$KitaApiService(client);
+abstract class SalamisApiService extends ChopperService {
+  static SalamisApiService create([ChopperClient? client]) => _$SalamisApiService(client);
 
-  @Get(path: 'list_edisi')
+  @Get(path: 'kita/list_edisi')
   Future<Response<ListEdisiResponse>> listEdisis();
 
-  @Get(path: 'edisi')
+  @Get(path: 'kita/edisi')
   Future<Response<EdisiResponse>> getEdisi(@Query('edisi_page_url') String edisi_page_url);
+
+  @Get(path: 'cabang/list_cabang')
+  Future<Response<ListCabangResponse>> listCabangs();
 }
 
-KitaApiService kitaApiService = createChopperClient(Flavor.current.kitaApiUrl).getService<KitaApiService>();
+SalamisApiService salamisApiService = createChopperClient(Flavor.current.salamisApiUrl).getService<SalamisApiService>();

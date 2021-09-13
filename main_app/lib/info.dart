@@ -107,7 +107,7 @@ class _InfoHomeState extends State<InfoHome> {
             leading: Icon(Icons.location_city),
             title: Text('Cabang-cabang GRII'),
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => CabangPage(),
+              builder: (context) => CabangScreen(),
             )),
           ),
           ListTile(
@@ -176,12 +176,12 @@ class _PengakuanPageState extends State<PengakuanPage> {
   }
 }
 
-class CabangPage extends StatefulWidget {
+class CabangScreen extends StatefulWidget {
   @override
-  _CabangPageState createState() => _CabangPageState();
+  _CabangScreenState createState() => _CabangScreenState();
 }
 
-class _CabangPageState extends State<CabangPage> {
+class _CabangScreenState extends State<CabangScreen> {
   final _controller = StreamController<CabangParseResult>();
 
   Future<CabangParseResult> loadCabang() async {

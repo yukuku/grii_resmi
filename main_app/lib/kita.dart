@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:grii_resmi/kita_models.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-import 'kita_api.dart';
+import 'salamis_api.dart';
 import 'main.dart';
 
 class KitaEdisiListScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class KitaEdisiListScreen extends StatefulWidget {
 }
 
 class _KitaEdisiListScreenState extends State<KitaEdisiListScreen> {
-  late Future<Response<ListEdisiResponse>> _edisisFuture = kitaApiService.listEdisis();
+  late Future<Response<ListEdisiResponse>> _edisisFuture = salamisApiService.listEdisis();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class _KitaEdisiListScreenState extends State<KitaEdisiListScreen> {
 
 class KitaEdisiScreen extends StatelessWidget {
   final String edisi_page_url;
-  late Future<Response<EdisiResponse>> _edisiFuture = kitaApiService.getEdisi(edisi_page_url);
+  late Future<Response<EdisiResponse>> _edisiFuture = salamisApiService.getEdisi(edisi_page_url);
 
   KitaEdisiScreen({
     Key? key,
