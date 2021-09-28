@@ -54,21 +54,29 @@ Future<void> _setupHttpOverrides() async {
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-  await runZonedGuarded<Future<void>>(() async {
-    await _setupHttpOverrides();
+  final run = () => runApp(MyApp());
 
-    Isolate.current.addErrorListener(RawReceivePort((pair) async {
-      final List<dynamic> errorAndStacktrace = pair;
-      await FirebaseCrashlytics.instance.recordError(
-        errorAndStacktrace.first,
-        errorAndStacktrace.last,
-      );
-    }).sendPort);
+  if (!kIsWeb) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-    runApp(MyApp());
-  }, FirebaseCrashlytics.instance.recordError);
+    await runZonedGuarded<Future<void>>(() async {
+      await _setupHttpOverrides();
+
+      Isolate.current.addErrorListener(RawReceivePort((pair) async {
+        final List<dynamic> errorAndStacktrace = pair;
+        await FirebaseCrashlytics.instance.recordError(
+          errorAndStacktrace.first,
+          errorAndStacktrace.last,
+        );
+      }).sendPort);
+
+      run();
+    }, FirebaseCrashlytics.instance.recordError);
+  } else {
+    // on web, no crashlytics
+    run();
+  }
 }
 
 class MyApp extends StatelessWidget {

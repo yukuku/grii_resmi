@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:grii_resmi/kita_models.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-import 'salamis_api.dart';
+import 'imageproxy.dart';
+import 'kita_models.dart';
 import 'main.dart';
+import 'salamis_api.dart';
 
 class KitaEdisiListScreen extends StatefulWidget {
   @override
@@ -67,7 +68,7 @@ class _KitaEdisiListScreenState extends State<KitaEdisiListScreen> {
                   color: Color(0xffc9a496),
                   child: FadeInImage.assetNetwork(
                     placeholder: 'assets/kita/edisi_placeholder.webp',
-                    image: edisi.edisi_thumbnail,
+                    image: edisi.edisi_thumbnail.imageProxy(),
                   ),
                 ),
                 SizedBox(height: 8),

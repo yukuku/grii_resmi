@@ -4,9 +4,10 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:grii_resmi/pillar_api.dart';
 
+import 'imageproxy.dart';
 import 'main.dart';
+import 'pillar_api.dart';
 import 'pillar_models.dart';
 
 class PillarHome extends StatefulWidget {
@@ -103,7 +104,7 @@ class _PillarHomeState extends State<PillarHome> {
                 color: Colors.white,
                 child: FadeInImage.assetNetwork(
                   placeholder: 'assets/pillar/issue_placeholder.jpg',
-                  image: issue.thumbnailUrl,
+                  image: issue.thumbnailUrl.imageProxy(),
                 ),
               ),
               SizedBox(height: 8),

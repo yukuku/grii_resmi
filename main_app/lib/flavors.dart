@@ -5,6 +5,7 @@ class Flavor {
   final String functionsPrefix;
   final String pillarApiUrl = "https://www.buletinpillar.org/prog/api/app-apis.php";
   final String salamisApiUrl = "https://pulau-salamis.herokuapp.com/";
+  final String imageProxyHost = "pulau-salamis.herokuapp.com";
 
   Flavor({
     required this.name,
