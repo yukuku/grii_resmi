@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'imageproxy.dart';
 import 'kita_models.dart';
@@ -138,11 +140,17 @@ class KitaEdisiScreen extends StatelessWidget {
             ElevatedButton(
               child: Text(download.title, style: TextStyle(color: accentColor, fontSize: 24)),
               onPressed: () async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => KitaPdfViewScreen(
-                    pdfUrl: download.url.imageProxy(),
-                  ),
-                ));
+                if (kIsWeb) {
+                  if (await canLaunch(download.url)) {
+                    launch(download.url);
+                  }
+                } else {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => KitaPdfViewScreen(
+                      pdfUrl: download.url.imageProxy(),
+                    ),
+                  ));
+                }
               },
             ),
         ],
