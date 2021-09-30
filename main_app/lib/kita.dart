@@ -132,7 +132,7 @@ class KitaEdisiScreen extends StatelessWidget {
             style: TextStyle(fontSize: 22, letterSpacing: 1.5),
           ),
           SizedBox(height: 8),
-          Image.network(edisi.edisi_image),
+          Image.network(edisi.edisi_image.imageProxy()),
           SizedBox(height: 8),
           for (final download in edisi.downloads)
             ElevatedButton(
@@ -140,7 +140,7 @@ class KitaEdisiScreen extends StatelessWidget {
               onPressed: () async {
                 await Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => KitaPdfViewScreen(
-                    pdfUrl: download.url,
+                    pdfUrl: download.url.imageProxy(),
                   ),
                 ));
               },
